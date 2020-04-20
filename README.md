@@ -14,6 +14,7 @@ Aplicación web realizada con Angular version 9.1.1.
 * npm install         ---> Este comando instala todas las librerías necesarias para la aplicación
 3) Una vez finalizada la instalación de las librerías ejecutar:
 * npm start
+4) Una vez levantada la app abrir el navegador en http://localhost:4200
 
 
 
