@@ -1,0 +1,48 @@
+ <!-- firebase -->
+ <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+<div id="login" class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-sm-12 col-md-10 col-lg-8 mx-auto">
+                <div class="card_login">
+                    <div class="card">
+                        <div class="card_body text-center">
+                            <form #formLogin="ngForm" (ngSubmit)="onLogin()">
+                                <h1 class="h3 mb-3 mt-3 font-weight-normal">Login</h1>
+                            
+                                <div class="form-group">
+                                    <input type="text" id="username" name="username" class="form-control"
+                                        placeholder="Username" required [(ngModel)]="user.username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" id="password" name="password" class="form-control"
+                                        placeholder="Password" required [(ngModel)]="user.password">
+                                </div>
+                                <button type="submit" class="btn btn-lg btn-primary">Login</button>
+                                <div class="form-group">
+                                    <a routerLink="/register" class="form-control register-user">Creá tu cuenta nueva</a>
+                                    <p> Or Sign In with ..</p>
+                                </div>
+                                <div class="form-group social" >
+                                    <a href="#" class="btn btn-block btn-social btn-facebook" (click)="onFacebookLogin()">
+                                        <span class="fa fa-facebook"></span>
+                                        Facebook
+                                    </a>
+                                    <a href="#" class="btn btn-block btn-social btn-google" (click)="onGoogleLogin()">
+                                        <span class="fa fa-google"></span>
+                                        Google
+                                    </a>
+                                    <a href="#" class="btn btn-block btn-social btn-linkedin" (click)="onLinkedinGithub()">
+                                        <span class="fa fa-linkedin"></span>
+                                        Linkedin
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

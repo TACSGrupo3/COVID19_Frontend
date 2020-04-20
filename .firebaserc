@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "covid19-tacs": {
+      "hosting": {
+        "covid19": [
+          "covid19-tacs"
+        ]
+      }
+    }
+  }
+}

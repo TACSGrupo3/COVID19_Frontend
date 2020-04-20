@@ -1,0 +1,8 @@
+<p>countries works!</p>
+
+<button (click)="findAll()">Find All Countries</button>
+
+<button (click)="clear()">Clear All Countries</button>
+<div *ngFor="let item of allCountries">
+    {{item.id}} -  {{item.name}} - {{item.region}}
+</div>

@@ -1,0 +1,45 @@
+.form-control.register-user{
+    border: 0px solid #fff !important;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.btn-primary{
+    width: 30%;
+}
+
+.btn-social{
+    position: relative;
+    text-align:  center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    border-color: rgba(0,0,0,0.2);
+}
+
+.btn-facebook{
+    background-color: #3b5998;
+    width: 33%;
+}
+
+.btn-google{
+    background-color: #dd4b39;
+    width: 33%;
+}
+
+.btn-linkedin{
+    background-color: #0073b1;
+    width: 33%;
+}
+
+.social {
+    display: inline-flex;
+    width: 100%;
+}
+
+.btn{
+    margin-top: 0px !important;
+    margin: 15px;
+}
