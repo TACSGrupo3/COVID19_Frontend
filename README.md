@@ -17,4 +17,5 @@ Aplicación web realizada con Angular version 9.1.1.
 4) Una vez levantada la app abrir el navegador en http://localhost:4200
 
 
-
+## Nota:
+La app está configurada para consultar la API Rest en Localhost:8080, por lo tanto para que funcione deben tener la api levantada
