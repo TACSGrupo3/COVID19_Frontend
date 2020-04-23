@@ -1,16 +1,25 @@
+dist: trusty
+
 language: node_js
+
 node_js:
   - '12.16.2'
+
+sudo: required
+
+services:
+  - docker
+  -
 branches:
   only:
     - master
 
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
+
+before_install:
+  - # start your web application and listen on `localhost`
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 install:
   - npm install
