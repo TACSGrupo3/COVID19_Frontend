@@ -80,14 +80,22 @@ export class AuthService {
     }
 
     setUser(user: UserModel): void {
-        let user_string = JSON.stringify(user);
-        localStorage.setItem("currentUser", user_string);
+        if(user != null){
+            let user_string = JSON.stringify(user);
+            localStorage.setItem("currentUser", user_string);
+        }else{
+            localStorage.clear();
+        }
+        
     }
 
     setToken(token): void {
         localStorage.setItem("accessToken", token);
     }
     
+    cleanLocalStorage(){
+        this.setUser(null);
+    }
 
     //MANEJO DEL TOKEN 
 

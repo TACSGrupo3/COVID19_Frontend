@@ -29,7 +29,7 @@ export class TestServicesComponent implements OnInit {
     this.tested = false;
 
     let serviceCountries = new ServiceTest();
-    serviceCountries.name = "findAll";
+    serviceCountries.name = "countriesList";
     serviceCountries.url = "/countries";
     serviceCountries.method = "GET";
     serviceCountries.testParam = "";
@@ -38,17 +38,35 @@ export class TestServicesComponent implements OnInit {
     this.listServices.push(serviceCountries);
 
     let serviceCountriesNear = new ServiceTest();
-    serviceCountriesNear.name = "findNearCountries";
-    serviceCountriesNear.url = "/countries?near={{NameCountry}}";
+    serviceCountriesNear.name = "listNearedCountries";
+    serviceCountriesNear.url = "/countries?latitud={{latitud}}&longitud={{longitud}}";
     serviceCountriesNear.method = "GET";
-    serviceCountriesNear.testParam = "Argentina";
+    serviceCountriesNear.testParam = ["-34.6253141", "-58.56012939999999"];
     serviceCountriesNear.status = false;
     serviceCountriesNear.isLoading = false;
     this.listServices.push(serviceCountriesNear);
 
+    let serviceGetListCountries = new ServiceTest();
+    serviceGetListCountries.name = "getCountriesList";
+    serviceGetListCountries.url = "/countriesList";
+    serviceGetListCountries.method = "GET";
+    serviceGetListCountries.testParam = "";
+    serviceGetListCountries.status = false;
+    serviceGetListCountries.isLoading = false;
+    this.listServices.push(serviceGetListCountries);
+
+    let serviceGetCountriesListOfUser = new ServiceTest();
+    serviceGetCountriesListOfUser.name = "getCountriesListOfUser";
+    serviceGetCountriesListOfUser.url = "/countriesList";
+    serviceGetCountriesListOfUser.method = "GET";
+    serviceGetCountriesListOfUser.testParam = "";
+    serviceGetCountriesListOfUser.status = false;
+    serviceGetCountriesListOfUser.isLoading = false;
+    this.listServices.push(serviceGetCountriesListOfUser);
+
     let serviceAddListCountries = new ServiceTest();
-    serviceAddListCountries.name = "addListCountries";
-    serviceAddListCountries.url = "/listCountries";
+    serviceAddListCountries.name = "addCountriesList";
+    serviceAddListCountries.url = "/countriesList";
     serviceAddListCountries.method = "POST";
     serviceAddListCountries.testParam = this.createUserWithCountries();
     serviceAddListCountries.status = false;
@@ -56,13 +74,22 @@ export class TestServicesComponent implements OnInit {
     this.listServices.push(serviceAddListCountries);
 
     let serviceModifyListCountries = new ServiceTest();
-    serviceModifyListCountries.name = "modifyListCountries";
-    serviceModifyListCountries.url = "/listCountries";
-    serviceModifyListCountries.method = "PUT";
-    serviceModifyListCountries.testParam = this.createUserWithCountries();
+    serviceModifyListCountries.name = "modifyCountriesList";
+    serviceModifyListCountries.url = "/countriesList/{{countriesListId}}";
+    serviceModifyListCountries.method = "PATCH";
+    serviceModifyListCountries.testParam = this.createUserWithCountriesToModify();
     serviceModifyListCountries.status = false;
     serviceModifyListCountries.isLoading = false;
     this.listServices.push(serviceModifyListCountries);
+
+    let adminAllUsers = new ServiceTest();
+    adminAllUsers.name = "getAllUsers";
+    adminAllUsers.url = "/admin/users";
+    adminAllUsers.method = "GET";
+    adminAllUsers.testParam = "";
+    adminAllUsers.status = false;
+    adminAllUsers.isLoading = false;
+    this.listServices.push(adminAllUsers);
 
     let adminUsers = new ServiceTest();
     adminUsers.name = "getUsers";
@@ -74,26 +101,26 @@ export class TestServicesComponent implements OnInit {
     this.listServices.push(adminUsers);
 
     let adminLists = new ServiceTest();
-    adminLists.name = "getLists";
-    adminLists.url = "/admin/lists?IDantiguedad={{idAntiguedad}}";
+    adminLists.name = "getCountriesLists";
+    adminLists.url = "/admin/countriesList";
     adminLists.method = "GET";
-    adminLists.testParam = 2;
+    adminLists.testParam = "";
     adminLists.status = false;
     adminLists.isLoading = false;
     this.listServices.push(adminLists);
 
     let adminCountries = new ServiceTest();
-    adminCountries.name = "getCountries";
-    adminCountries.url = "/admin/lists/{{idLista1}}?compare={{idLista2}}";
+    adminCountries.name = "getCountriesListFiltered";
+    adminCountries.url = "/admin/countriesList?filterLast={{cantDays}}";
     adminCountries.method = "GET";
-    adminCountries.testParam = [1,2];
+    adminCountries.testParam = 3;
     adminCountries.status = false;
     adminCountries.isLoading = false;
     this.listServices.push(adminCountries);
 
     let adminInteresados = new ServiceTest();
-    adminInteresados.name = "getInteresados";
-    adminInteresados.url = "/admin/country/{{countryId}}";
+    adminInteresados.name = "getUserIntrested";
+    adminInteresados.url = "/admin/countries/{{countryId}}/users";
     adminInteresados.method = "GET";
     adminInteresados.testParam = 3;
     adminInteresados.status = false;
@@ -103,9 +130,9 @@ export class TestServicesComponent implements OnInit {
 
     let report = new ServiceTest();
     report.name = "getReport";
-    report.url = "/report/{{listId}}?baseCountryId={{countryId}}";
+    report.url = "/report/list?country={{countryId}}&offset={{offset}}";
     report.method = "GET";
-    report.testParam = [1,5];
+    report.testParam = ["Argentina", 1, "Brasil", 2];
     report.status = false;
     report.isLoading = false;
     this.listServices.push(report);
@@ -113,7 +140,6 @@ export class TestServicesComponent implements OnInit {
 
   createUserWithCountries(): UserModel {
     let userWithCountries: UserModel = new UserModel();
-    userWithCountries.id = 1;
     userWithCountries.username = "admin";
     userWithCountries.firstName = "admin";
     userWithCountries.lastName = "admin";
@@ -133,6 +159,29 @@ export class TestServicesComponent implements OnInit {
     return userWithCountries;
   }
 
+  createUserWithCountriesToModify(): UserModel {
+    let userWithCountries: UserModel = new UserModel();
+    userWithCountries.id = 1
+    userWithCountries.username = "admin";
+    userWithCountries.firstName = "admin";
+    userWithCountries.lastName = "admin";
+    let countriesList: ListCountriesModel = new ListCountriesModel();
+    let argentina: CountryModel = new CountryModel();
+    argentina.id = 1;
+    argentina.name = "Argentina";
+    let brasil: CountryModel = new CountryModel();
+    brasil.id = 2;
+    brasil.name = "Brasil";
+    countriesList.id = 1;
+    countriesList.name = "Arg - Bra";
+    countriesList.countries.push(argentina);
+    countriesList.countries.push(brasil);
+    countriesList.creationDate = new Date();
+    userWithCountries.countrieList = countriesList;
+
+    return userWithCountries;
+  }
+
   testService() {
     this.tested = true;
     console.log("Inicio Testing Services");
@@ -140,8 +189,8 @@ export class TestServicesComponent implements OnInit {
       service.isLoading = true;
     });
 
-    //Servicio: findAll
-    let index = this.listServices.findIndex(element => element.name === "findAll");
+    //Servicio: listCountries
+    let index = this.listServices.findIndex(element => element.name === "countriesList");
     this.countriesServices.findAll().subscribe(data => {
       this.listServices[index].status = true;
       this.listServices[index].isLoading = false;
@@ -150,19 +199,20 @@ export class TestServicesComponent implements OnInit {
       this.listServices[index].isLoading = false;
     });
 
-    //Servicio: findNearCountries
-    let index2 = this.listServices.findIndex(element => element.name === "findNearCountries");
-    this.countriesServices.findNearCountries(this.listServices[index2].testParam).subscribe(data => {
-      this.listServices[index2].status = true;
-      this.listServices[index2].isLoading = false;
-    }, error => {
-      this.listServices[index2].status = false;
-      this.listServices[index2].isLoading = false;
-    });
+    //Servicio: listNearedCountries
+    let index2 = this.listServices.findIndex(element => element.name === "listNearedCountries");
+    this.countriesServices.findNearCountries(this.listServices[index2].testParam[0],
+      this.listServices[index2].testParam[1]).subscribe(data => {
+        this.listServices[index2].status = true;
+        this.listServices[index2].isLoading = false;
+      }, error => {
+        this.listServices[index2].status = false;
+        this.listServices[index2].isLoading = false;
+      });
 
-    //Servicio: addListCountries
-    let index3 = this.listServices.findIndex(element => element.name === "addListCountries");
-    this.countriesServices.addListCountries(this.listServices[index3].testParam).subscribe(data => {
+    //Servicio: getListCountries
+    let index3 = this.listServices.findIndex(element => element.name === "getCountriesList");
+    this.countriesServices.getCountriesList().subscribe(data => {
       this.listServices[index3].status = true;
       this.listServices[index3].isLoading = false;
     }, error => {
@@ -170,9 +220,9 @@ export class TestServicesComponent implements OnInit {
       this.listServices[index3].isLoading = false;
     });
 
-    //Servicio: modifyListCountries
-    let index4 = this.listServices.findIndex(element => element.name === "modifyListCountries");
-    this.countriesServices.modifyListCountries(this.listServices[index4].testParam).subscribe(data => {
+    //Servicio: getListCountriesOfUser
+    let index4 = this.listServices.findIndex(element => element.name === "getCountriesListOfUser");
+    this.countriesServices.getCountriesListOfUser(this.listServices[index4].testParam).subscribe(data => {
       this.listServices[index4].status = true;
       this.listServices[index4].isLoading = false;
     }, error => {
@@ -180,9 +230,9 @@ export class TestServicesComponent implements OnInit {
       this.listServices[index4].isLoading = false;
     });
 
-    //Servicio: getUsers
-    let index5 = this.listServices.findIndex(element => element.name === "getUsers");
-    this.adminService.getUser(this.listServices[index5].testParam).subscribe(data => {
+    //Servicio: addListCountries
+    let index5 = this.listServices.findIndex(element => element.name === "addCountriesList");
+    this.countriesServices.addCountriesList(this.listServices[index5].testParam).subscribe(data => {
       this.listServices[index5].status = true;
       this.listServices[index5].isLoading = false;
     }, error => {
@@ -190,9 +240,9 @@ export class TestServicesComponent implements OnInit {
       this.listServices[index5].isLoading = false;
     });
 
-    //Servicio: getLists
-    let index6 = this.listServices.findIndex(element => element.name === "getLists");
-    this.adminService.getLists(this.listServices[index6].testParam).subscribe(data => {
+    //Servicio: modifyListCountries
+    let index6 = this.listServices.findIndex(element => element.name === "modifyCountriesList");
+    this.countriesServices.modifyCountriesList(this.listServices[index6].testParam).subscribe(data => {
       this.listServices[index6].status = true;
       this.listServices[index6].isLoading = false;
     }, error => {
@@ -200,9 +250,9 @@ export class TestServicesComponent implements OnInit {
       this.listServices[index6].isLoading = false;
     });
 
-    //Servicio: getCountries
-    let index7 = this.listServices.findIndex(element => element.name === "getCountries");
-    this.adminService.getCountries(this.listServices[index7].testParam[0],this.listServices[index7].testParam[1]).subscribe(data => {
+    //Servicio: getAllUsers
+    let index7 = this.listServices.findIndex(element => element.name === "getAllUsers");
+    this.adminService.getAllUser().subscribe(data => {
       this.listServices[index7].status = true;
       this.listServices[index7].isLoading = false;
     }, error => {
@@ -210,9 +260,9 @@ export class TestServicesComponent implements OnInit {
       this.listServices[index7].isLoading = false;
     });
 
-    //Servicio: getInteresados
-    let index8 = this.listServices.findIndex(element => element.name === "getInteresados");
-    this.adminService.getInteresados(this.listServices[index8].testParam).subscribe(data => {
+    //Servicio: getUsers
+    let index8 = this.listServices.findIndex(element => element.name === "getUsers");
+    this.adminService.getUser(this.listServices[index8].testParam).subscribe(data => {
       this.listServices[index8].status = true;
       this.listServices[index8].isLoading = false;
     }, error => {
@@ -220,15 +270,45 @@ export class TestServicesComponent implements OnInit {
       this.listServices[index8].isLoading = false;
     });
 
-     //Servicio: getReport
-     let index9 = this.listServices.findIndex(element => element.name === "getReport");
-     this.reportService.getReport(this.listServices[index9].testParam[0],this.listServices[index9].testParam[1]).subscribe(data => {
-       this.listServices[index9].status = true;
-       this.listServices[index9].isLoading = false;
-     }, error => {
-       this.listServices[index9].status = false;
-       this.listServices[index9].isLoading = false;
-     });
+    //Servicio: getCountriesLists
+    let index9 = this.listServices.findIndex(element => element.name === "getCountriesLists");
+    this.adminService.getCountriesLists().subscribe(data => {
+      this.listServices[index9].status = true;
+      this.listServices[index9].isLoading = false;
+    }, error => {
+      this.listServices[index9].status = false;
+      this.listServices[index9].isLoading = false;
+    });
+
+    //Servicio: getCountriesLists
+    let index10 = this.listServices.findIndex(element => element.name === "getCountriesListFiltered");
+    this.adminService.getCountriesListsFiltered(this.listServices[index10].testParam).subscribe(data => {
+      this.listServices[index10].status = true;
+      this.listServices[index10].isLoading = false;
+    }, error => {
+      this.listServices[index10].status = false;
+      this.listServices[index10].isLoading = false;
+    });
+
+    //Servicio: getUserIntrested
+    let index11 = this.listServices.findIndex(element => element.name === "getUserIntrested");
+    this.adminService.getUserIntrested(this.listServices[index11].testParam).subscribe(data => {
+      this.listServices[index11].status = true;
+      this.listServices[index11].isLoading = false;
+    }, error => {
+      this.listServices[index11].status = false;
+      this.listServices[index11].isLoading = false;
+    });
+
+    //Servicio: getReport
+    let index12 = this.listServices.findIndex(element => element.name === "getReport");
+    this.reportService.getReport(this.listServices[index12].testParam).subscribe(data => {
+      this.listServices[index12].status = true;
+      this.listServices[index12].isLoading = false;
+    }, error => {
+      this.listServices[index12].status = false;
+      this.listServices[index12].isLoading = false;
+    });
 
     console.log("Fin Testing Services");
   }

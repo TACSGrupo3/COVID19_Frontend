@@ -51,8 +51,16 @@ export class ReportsService {
         return params;
     }
 
-    getReport(listId: number, countryId: number){
-        return this.getRequest("report",listId,["baseCountryId="+countryId]);
+    getReport(params: any[]){
+        let url : string = "";
+        for(let i = 0; i < params.length; i++){
+            if(i != 0){
+                url = url + "&";
+            }
+            url = url + "country=" + params[i] + "&" + "offset=" + params[i+1] ;
+            i++;
+        }
+        return this.getRequest("report",null,[url]);
     }
 }
 

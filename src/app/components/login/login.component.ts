@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit {
         this.authService.setUser(data);
         this.authService.setToken(data.token);
       }, error => {
-        if (error.status == 0) {
+        if (error.status == 0 || error.status == 504 ) {
           let snackBarRef = this._snackBar.
             open("Ocurrió un problema en el servidor. Intenté nuevamente en unos minutos.", null,
               { duration: 3000 });

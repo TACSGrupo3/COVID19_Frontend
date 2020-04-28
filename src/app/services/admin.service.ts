@@ -17,6 +17,15 @@ export class AdminService {
         return this.http.get(url);
        
     }
+
+    getRequestWithPost(servicio: string, params: any, queryParams: Array<any>, postRequest: string) : Observable<any> {
+        var url: string;
+        let paramsString = this.paramsString(params,queryParams);
+        url = this.SERVIDOR_API + servicio + "/" + paramsString + "/" + postRequest;
+
+        return this.http.get(url);
+       
+    }
     
     postRequest(servicio: string, body: any) : Observable<any> {
         var url: string;
@@ -27,13 +36,13 @@ export class AdminService {
         return this.http.post(url, body,options);
     }
 
-    putRequest(servicio: string, body: any) : Observable<any> {
+    patchRequest(servicio: string, body: any, idToModify : any) : Observable<any> {
         var url: string;
-        url = this.SERVIDOR_API + servicio;
+        url = this.SERVIDOR_API + servicio + idToModify;
         let myHeaders: HttpHeaders = new HttpHeaders();
         let options = { headers : myHeaders };
         
-        return this.http.put(url, body,options);
+        return this.http.patch(url, body,options);
     }
     paramsString(params: any, queryParams : Array<any>) {
         if(params == null) params = "";
@@ -50,20 +59,24 @@ export class AdminService {
         return params;
     }
 
+    getAllUser(){
+        return this.getRequest("admin/users",null,null);
+    }
+
     getUser(userId : number){
         return this.getRequest("admin/users",userId,null);
     }
 
-    getLists(idAntiguedad : number){
-        return this.getRequest("admin/lists",null,["IDantiguedad="+idAntiguedad]);
+    getCountriesLists(){
+        return this.getRequest("admin/countriesList",null,null);
     }
 
-    getCountries(idList1 : number, idList2: number ){
-        return this.getRequest("admin/lists",idList1,["compare="+idList2]);
+    getCountriesListsFiltered(cantDays : number){
+        return this.getRequest("admin/countriesList",null,["filterLast="+cantDays]);
     }
 
-    getInteresados(idCountry : number){
-        return this.getRequest("admin/country",idCountry,null);
+    getUserIntrested(idCountry : number){
+        return this.getRequestWithPost("admin/countries",idCountry,null,"users");
     }
 }
 

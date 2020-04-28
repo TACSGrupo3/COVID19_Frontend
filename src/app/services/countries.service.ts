@@ -27,13 +27,13 @@ export class CountriesServices {
         return this.http.post(url, body,options);
     }
 
-    putRequest(servicio: string, body: any) : Observable<any> {
+    patchRequest(servicio: string, body: any, idToModify : any) : Observable<any> {
         var url: string;
-        url = this.SERVIDOR_API + servicio;
+        url = this.SERVIDOR_API + servicio + "/" + idToModify;
         let myHeaders: HttpHeaders = new HttpHeaders();
         let options = { headers : myHeaders };
         
-        return this.http.put(url, body,options);
+        return this.http.patch(url, body,options);
     }
 
     private paramsString(params: any, queryParams: Array<any>) {
@@ -55,16 +55,24 @@ export class CountriesServices {
         return this.getRequest("countries", null, null);
     }
 
-    findNearCountries(country : String){
-        return this.getRequest("countries", null, ["near="+country]);
+    findNearCountries(latitud : any, longitud : any){
+        return this.getRequest("countries", null, ["latitud="+latitud,"longitud="+longitud]);
     }
 
-    addListCountries(user : UserModel){
-        return this.postRequest("listCountries",user);
+    getCountriesList(){
+        return this.getRequest("countriesList",null,null);
     }
 
-    modifyListCountries(user : UserModel){
-        return this.putRequest("listCountries",user);
+    getCountriesListOfUser(user : UserModel){
+        return this.getRequest("countriesList",user.id, null);
+    }
+
+    addCountriesList(user : UserModel){
+        return this.postRequest("countriesList",user);
+    }
+
+    modifyCountriesList(user : UserModel){
+        return this.patchRequest("countriesList",user.countrieList, user.id);
     }
 }
 
