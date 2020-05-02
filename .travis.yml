@@ -29,8 +29,8 @@ before_script:
   - npm install
 
 script:
-  - npm run test -- --watch=false
-  - npm run e2e
+  #- npm run test -- --watch=false
+  #- npm run e2e
   - docker build -t tacs-grupo3-front_end .
 
 after_success:
