@@ -4,5 +4,5 @@
 
 <button (click)="clear()">Clear All Countries</button>
 <div *ngFor="let item of allCountries">
-    {{item.id}} -  {{item.name}} - {{item.region}}
+    {{item.id}} -  {{item.name}} - ISO2: {{item.countryCode.iso2}} - ISO3: {{item.countryCode.iso3}}
 </div>

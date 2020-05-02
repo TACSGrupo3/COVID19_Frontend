@@ -292,3 +292,32 @@
   .mat-card{
     padding: 0px !important;
   }
+
+  .btn-report{
+    position: absolute;
+    bottom: 5px;
+    width: 70%;
+    left: calc((16% - 0.75px) * 1 + 0px);
+  }
+  .card-countries{
+    height: 100%;
+  }
+
+  .cont-menu{display:block; width: 80%; margin:0 auto;}
+.cont-menu-div{display: inline-block; margin:10px; background-color: #ffffff; border-radius: 3px; padding:20px; height: 180px; width: 24%; vertical-align: middle; text-align: center; cursor: pointer; -webkit-box-shadow: 3px 3px 3px 0px rgba(204,204,204,1); -moz-box-shadow: 3px 3px 3px 0px rgba(204,204,204,1); box-shadow: 3px 3px 3px 0px rgba(204,204,204,1);}
+.cont-menu-img{display: block; margin: 0 auto;}
+.cont-menu-span{display: block;text-align: center; width: 100%; padding: 0 5px; box-sizing: border-box;}
+
+
+@media (max-width:840px){
+  .cont-menu-div{width: 45%;}
+}
+
+@media (max-width:560px){
+  .cont-menu{width: 100%;}
+}
+
+@media (max-width:460px){
+  .cont-menu-div{width: 90%;}
+  .cont-menu{text-align:center;}
+}

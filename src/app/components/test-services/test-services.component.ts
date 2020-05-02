@@ -130,7 +130,7 @@ export class TestServicesComponent implements OnInit {
 
     let report = new ServiceTest();
     report.name = "getReport";
-    report.url = "/report/list?country={{countryId}}&offset={{offset}}";
+    report.url = "/report?country={{countryId}}&offset={{offset}}";
     report.method = "GET";
     report.testParam = ["Argentina", 1, "Brasil", 2];
     report.status = false;

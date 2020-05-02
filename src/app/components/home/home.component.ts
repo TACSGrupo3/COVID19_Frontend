@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesServices } from 'src/app/services/countries.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ export class HomeComponent implements OnInit {
   public nearCountries: any;
   public enableLocation : boolean = false;
 
-  constructor(private countriesServices: CountriesServices) { }
+  constructor(private countriesServices: CountriesServices,
+    private router: Router) { }
 
   ngOnInit(): void {
     if (navigator.geolocation) {
@@ -26,5 +28,13 @@ export class HomeComponent implements OnInit {
         });
       });
     }
+  }
+
+  showReport(){
+    this.router.navigate(['/reports', { id: 1 }]);
+  }
+
+  openMenu(menu: any){
+    console.log(menu);
   }
 }

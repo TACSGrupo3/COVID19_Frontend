@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guard/auth.guard';
 import { TestServicesComponent } from './components/test-services/test-services.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'countries', component: CountriesComponent, canActivate: [AuthGuard]},
-  { path: 'testServices', component: TestServicesComponent, canActivate: [AuthGuard]}
+  { path: 'testServices', component: TestServicesComponent, canActivate: [AuthGuard]},
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
