@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceTest } from 'src/app/model/serviceTest.model';
 import { UserModel } from 'src/app/model/user.model';
 import { CountryModel } from 'src/app/model/country.model';
-import { ListCountriesModel } from 'src/app/model/listCountries.model';
+import { CountriesListModel } from 'src/app/model/countriesList.model';
 import { CountriesServices } from 'src/app/services/countries.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -41,7 +41,7 @@ export class TestServicesComponent implements OnInit {
     serviceCountriesNear.name = "listNearedCountries";
     serviceCountriesNear.url = "/countries?latitud={{latitud}}&longitud={{longitud}}";
     serviceCountriesNear.method = "GET";
-    serviceCountriesNear.testParam = ["-34.6253141", "-58.56012939999999"];
+    serviceCountriesNear.testParam = ["-34.6253141", "-58.56012939999999","5"];
     serviceCountriesNear.status = false;
     serviceCountriesNear.isLoading = false;
     this.listServices.push(serviceCountriesNear);
@@ -66,9 +66,9 @@ export class TestServicesComponent implements OnInit {
 
     let serviceAddListCountries = new ServiceTest();
     serviceAddListCountries.name = "addCountriesList";
-    serviceAddListCountries.url = "/countriesList";
+    serviceAddListCountries.url = "/users/{{userId}}/countriesList";
     serviceAddListCountries.method = "POST";
-    serviceAddListCountries.testParam = this.createUserWithCountries();
+    serviceAddListCountries.testParam = [2,this.createUserWithCountries()];
     serviceAddListCountries.status = false;
     serviceAddListCountries.isLoading = false;
     this.listServices.push(serviceAddListCountries);
@@ -138,25 +138,21 @@ export class TestServicesComponent implements OnInit {
     this.listServices.push(report);
   }
 
-  createUserWithCountries(): UserModel {
-    let userWithCountries: UserModel = new UserModel();
-    userWithCountries.username = "admin";
-    userWithCountries.firstName = "admin";
-    userWithCountries.lastName = "admin";
-    let countriesList: ListCountriesModel = new ListCountriesModel();
+  createUserWithCountries(): Array<CountriesListModel> {
+    let countriesList: CountriesListModel = new CountriesListModel();
     let argentina: CountryModel = new CountryModel();
     argentina.id = 1;
     argentina.name = "Argentina";
     let brasil: CountryModel = new CountryModel();
     brasil.id = 2;
-    brasil.name = "Brasil";
-    countriesList.id = 1;
+    brasil.name = "Brazil";
     countriesList.name = "Arg - Bra";
     countriesList.countries.push(argentina);
     countriesList.countries.push(brasil);
-    userWithCountries.countrieList = countriesList;
 
-    return userWithCountries;
+    let countriesLists : Array<CountriesListModel> = new Array<CountriesListModel>();
+    countriesLists.push(countriesList);
+    return countriesLists;
   }
 
   createUserWithCountriesToModify(): UserModel {
@@ -165,7 +161,7 @@ export class TestServicesComponent implements OnInit {
     userWithCountries.username = "admin";
     userWithCountries.firstName = "admin";
     userWithCountries.lastName = "admin";
-    let countriesList: ListCountriesModel = new ListCountriesModel();
+    let countriesList: CountriesListModel = new CountriesListModel();
     let argentina: CountryModel = new CountryModel();
     argentina.id = 1;
     argentina.name = "Argentina";
@@ -202,7 +198,7 @@ export class TestServicesComponent implements OnInit {
     //Servicio: listNearedCountries
     let index2 = this.listServices.findIndex(element => element.name === "listNearedCountries");
     this.countriesServices.findNearCountries(this.listServices[index2].testParam[0],
-      this.listServices[index2].testParam[1]).subscribe(data => {
+      this.listServices[index2].testParam[1],this.listServices[index2].testParam[2]).subscribe(data => {
         this.listServices[index2].status = true;
         this.listServices[index2].isLoading = false;
       }, error => {
@@ -232,7 +228,8 @@ export class TestServicesComponent implements OnInit {
 
     //Servicio: addListCountries
     let index5 = this.listServices.findIndex(element => element.name === "addCountriesList");
-    this.countriesServices.addCountriesList(this.listServices[index5].testParam).subscribe(data => {
+    this.countriesServices.addCountriesList(this.listServices[index5].testParam[0],
+        this.listServices[index5].testParam[1]).subscribe(data => {
       this.listServices[index5].status = true;
       this.listServices[index5].isLoading = false;
     }, error => {

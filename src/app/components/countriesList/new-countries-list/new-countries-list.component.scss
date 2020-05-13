@@ -1,0 +1,34 @@
+.resultados-inline{font-style: italic;}
+.resultados-title-row{margin: 10px 0 0;}
+.resultados-title-row-h3{font-family: 'Roboto', sans-serif; font-size: 1em !important; font-weight: 400; color: #999999; width: 100%; padding: 8px 0; margin: 0;}
+.resultados-title-row-h2{font-family: 'Roboto', sans-serif; font-size: 1em !important; font-weight: 600; color: #4d4d4d; width: 100%; padding: 8px 0; margin: 0;}
+
+@media only screen and (max-width: 600px){
+    .row-col-i{display: table !important; width: 100% !important; margin: 0; padding:0;}
+    .input-dual{padding: 0px;}
+    .cant-paises{padding-top:0px !important;position: absolute;top: 50px;}
+  }
+  
+  @media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  {
+  	.row-col-i{display: table !important; width: 100% !important; margin: 0; padding:0;}
+}
+
+.table{
+  margin-bottom: 0px !important;
+}
+
+.container-fluid{
+  padding-bottom: 5% !important;
+}
+
+.card-confirm{
+  background: rgb(0,0,0,0.01);
+  margin-top: 25px;
+  padding: 0px; 
+  min-height: auto !important;
+  max-width: 800px;
+  margin: auto;
+  border-style: outset;
+}

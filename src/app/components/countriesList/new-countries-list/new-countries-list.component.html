@@ -1,0 +1,97 @@
+<mat-horizontal-stepper [linear]="true" #stepper style="margin:3%" class="card">
+    <form [formGroup]="formGroup">
+        <mat-step [stepControl]="formGroup">
+            <ng-template matStepLabel>Nombre de la lista</ng-template>
+            <div class="text-right mt-4">
+                <button mat-button matStepperNext class="btn btn-primary" [disabled]="!isValid"
+                    (click)="updateNameList()">Siguiente</button>
+            </div>
+
+            <mat-form-field class="col-md-3 col-5 col-xl-3 col-lg-3" style="margin-bottom: 10%">
+                <mat-label>Nombre de la Lista</mat-label>
+                <input matInput formControlName="nameList" (ngModelChange)="isValidName()"
+                    placeholder="Ingrese el nombre de la lista.." required>
+            </mat-form-field>
+        </mat-step>
+
+        <mat-step [stepControl]="formGroup">
+            <ng-template matStepLabel>Lista de Paises</ng-template>
+            <div class="text-right mt-4">
+                <button mat-button matStepperPrevious class="btn btn-primary mr-3 ">Volver</button>
+                <button mat-button matStepperNext class="btn btn-primary"
+                    [disabled]="countriesList.countries.length == 0">Siguiente</button>
+            </div>
+            <div class="row row-i pt-5">
+                <div class="col-md-12 col-md-12-i input-dual">
+                    <div class="row row-i">
+                        <label translate class="col-md-3 label-on-left mm-label-left"
+                            style="width: 150px !important;max-width: 150px !important;"></label>
+                        <div class="col-md-9 col-md-i-9">
+                            <dual-list class="dualList" [format]="formatDualList" [source]="countries"
+                                [(destination)]="countriesList.countries" height="200px" [filter]="true" [sort]="true"
+                                display="name" key="id">
+                            </dual-list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="formGroup">
+            <ng-template matStepLabel>Confirmar</ng-template>
+            <div class="text-right mt-4">
+                <button mat-button matStepperPrevious class="btn btn-primary mr-3">Volver</button>
+                <button mat-button (click)="save()"
+                    [disabled]="countriesList.countries.length ==0 || countriesList.name == null"
+                    class="btn btn-primary">Guardar</button>
+            </div>
+            <mat-card class="main-content text-center card-confirm" *ngIf="countriesList.countries?.length > 0">
+                <div class="container-fluid">
+
+                    <div class="row resultados-title-row row-col-i">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-12-center col-xs-i-left">
+                            <div class="text-right cant-paises" style="padding-top: 50px;">
+                                <h3 class="resultados-title-row-h3" style="padding-left: 10px;">
+                                    <span class="resultados-inline">{{countriesList.countries.length}}
+                                        <span translate>Paises</span>
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-xs-12-center text-center col-xs-i-center">
+                            <div class="col-lg-12 wizard-title" style="padding-top: 10px;">
+                                <h2 translate class="wizard-h2">{{countriesList.name}}</h2>
+                                <p translate class="wizard-p">Confirmar la lista de paises</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8" style="margin:auto;">
+                            <div class="card card-no-margin">
+                                <div class="card-content">
+                                    <div class="content table-responsive card-massive">
+                                        <table class="table mm-table">
+                                            <thead class="text-primary">
+                                                <tr>
+                                                    <th translate class="mm-table-th col-md-6 pl-5">
+                                                        PAISES</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let country of countriesList.countries; let i = index">
+                                                    <td class="mm-table-td mm-table-massive col-md-6 pl-5"
+                                                        style="width: 120px !important;">
+                                                        {{country.name}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+
+        </mat-step>
+    </form>
+</mat-horizontal-stepper>

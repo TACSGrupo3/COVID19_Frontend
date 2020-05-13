@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json --ssl --ssl-key C:/Users/franc/certificates/localhost.key  --ssl-cert C:/Users/franc/certificates/localhost.crt --host 0.0.0.0",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,6 +22,7 @@
     "@angular/platform-browser": "~9.1.1",
     "@angular/platform-browser-dynamic": "~9.1.1",
     "@angular/router": "~9.1.1",
+    "angular-dual-listbox": "^5.0.1",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "firebase": "^7.14.1",

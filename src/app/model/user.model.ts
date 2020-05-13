@@ -1,4 +1,5 @@
-import { ListCountriesModel } from './listCountries.model';
+import { CountriesListModel } from './countriesList.model';
+import { UserRoleModel } from './userRole.model';
 
 export class UserModel {
     id: number;
@@ -6,5 +7,6 @@ export class UserModel {
     firstName: String;
     lastName: String;
     password: String;
-    countrieList: ListCountriesModel;
+    countrieList: CountriesListModel;
+    userRole: UserRoleModel;
 }

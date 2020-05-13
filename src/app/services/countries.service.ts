@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserModel } from '../model/user.model';
+import { CountriesListModel } from '../model/countriesList.model';
 
 @Injectable()
 export class CountriesServices {
@@ -18,9 +19,9 @@ export class CountriesServices {
 
     }
     
-    postRequest(servicio: string, body: any) : Observable<any> {
+    postRequest(servicio: string, body: any, idToAdd : any) : Observable<any> {
         var url: string;
-        url = this.SERVIDOR_API + servicio;
+        url = this.SERVIDOR_API + servicio + "/" + idToAdd;
         let myHeaders: HttpHeaders = new HttpHeaders();
         let options = { headers : myHeaders };
         
@@ -34,6 +35,14 @@ export class CountriesServices {
         let options = { headers : myHeaders };
         
         return this.http.patch(url, body,options);
+    }
+
+    deleteRequest(servicio: string, params : any) : Observable<any>{
+        var url: string;
+        let paramsString = this.paramsString(params, null);
+        url = this.SERVIDOR_API + servicio + "/" + paramsString;
+
+        return this.http.delete(url);
     }
 
     private paramsString(params: any, queryParams: Array<any>) {
@@ -55,8 +64,8 @@ export class CountriesServices {
         return this.getRequest("countries", null, null);
     }
 
-    findNearCountries(latitud : any, longitud : any){
-        return this.getRequest("countries", null, ["latitud="+latitud,"longitud="+longitud]);
+    findNearCountries(latitud : any, longitud : any, maxCant : any){
+        return this.getRequest("countries", null, ["latitude="+latitud,"longitude="+longitud, "maxCountries="+maxCant]);
     }
 
     getCountriesList(){
@@ -64,15 +73,19 @@ export class CountriesServices {
     }
 
     getCountriesListOfUser(user : UserModel){
-        return this.getRequest("countriesList",user.id, null);
+        return this.getRequest("users", user.id+"/countriesList", null);
     }
 
-    addCountriesList(user : UserModel){
-        return this.postRequest("countriesList",user);
+    addCountriesList(userId : String, countryList : Array<CountriesListModel>){
+        return this.postRequest("users", countryList, userId + "/countriesList");
     }
 
     modifyCountriesList(user : UserModel){
         return this.patchRequest("countriesList",user.countrieList, user.id);
+    }
+
+    deleteCountriesList(countriesListId : number){
+        return this.deleteRequest("countriesList", countriesListId);
     }
 }
 

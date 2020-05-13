@@ -1,8 +1,8 @@
 import { CountryModel } from './country.model';
 
-export class ListCountriesModel {
+export class CountriesListModel {
     id: number;
-    name: String;
+    name: string;
     countries: Array<CountryModel> = new Array<CountryModel>();
     creationDate: Date ;
 }

@@ -8,12 +8,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { HomeComponent } from './components/home/home.component';
-import { CountriesComponent } from './components/countries/countries.component';
+import { CountriesListComponent } from './components/countriesList/countriesList.component';
 import { CountriesServices } from './services/countries.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TestServicesComponent } from './components/test-services/test-services.component';
@@ -24,19 +24,26 @@ import { environment } from '../environments/environment';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
-
+import { AngularDualListBoxModule } from 'angular-dual-listbox';
+import { NewCountriesListComponent } from './components/countriesList/new-countries-list/new-countries-list.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { ConfirmModalComponent } from './components/countriesList/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CountriesComponent,
+    CountriesListComponent,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    TestServicesComponent
+    TestServicesComponent,
+    NewCountriesListComponent,
+    DialogComponent,
+    ConfirmModalComponent
   ],
   imports: [
+    AngularDualListBoxModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -46,9 +53,11 @@ import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
     NgxSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    ChartsModule
+    ChartsModule,
+    ReactiveFormsModule
   ],
   providers: [
+    FormBuilder,
     AuthService,
     CountriesServices,
     AdminService,

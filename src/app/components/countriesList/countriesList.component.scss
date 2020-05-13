@@ -1,0 +1,61 @@
+.list-card{
+  max-width: 400px;
+  margin: 10px;
+}
+
+.cards{
+  margin-top: 3%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.fabButton{
+  position: absolute;
+  top: 10px;
+  right: 2%;
+}
+
+.dataTable{
+  position: relative;
+  width: 95%;
+  margin: auto;
+}
+
+.viewMobile{
+  display: none !important;
+}
+
+.viewDesktop{
+  display: inline-flex !important;
+  flex-wrap: wrap;
+}
+
+@media (max-width:840px){
+  .viewMobile{
+    display: block !important;
+  }
+  
+  .viewDesktop{
+    display: none !important;
+    flex-wrap: wrap;
+  }
+
+}
+
+.card-no-results {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 10%;
+}
+
+@media (max-width:650px){
+  .card-no-results {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 15%;
+  }
+}
+
+.cursor-icon{
+  cursor: pointer;
+}

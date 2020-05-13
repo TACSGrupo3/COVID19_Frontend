@@ -1,0 +1,87 @@
+<div class="h-100">
+    <div>
+        <button mat-fab [routerLink]="['/newCountriesList']" matTooltip="Crear una nueva lista" color="primary"
+            class="fabButton">
+            <span class="material-icons">add</span>
+        </button>
+    </div>
+    <div *ngIf="countriesList.length > 0">
+        <div class="cards" class="viewDesktop">
+            <div *ngFor="let list of countriesList">
+                <mat-card class="list-card">
+                    <mat-card-header class="text-center">
+                        <span class="material-icons cursor-icon">clear</span>
+                        <mat-card-title>{{list.name}}</mat-card-title>
+                        <mat-card-subtitle>{{list.countries.length}} paises</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div *ngFor="let number of [0,1,2,3,4]">
+                            <p *ngIf="list.countries[number] != null && number != 4">
+                                {{list.countries[number].name}}
+                            </p>
+                            <p *ngIf="list.countries[number] != null && number == 4">
+                                ...
+                            </p>
+                            <p *ngIf="list.countries[number] == null" style="height: 20px;">
+
+                            </p>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="text-center">
+                        <button mat-button>EDITAR</button>
+                        <button mat-button>VER REPORTE</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="viewMobile" style="margin-top: 75px;">
+            <table mat-table [dataSource]="countriesList" class="mat-elevation-z8 dataTable">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Nombre de la Lista. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cant">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Cantidad de paises </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.countries.length}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="report">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Reporte</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> <button class="btn btn-link"> Ver Reporte</button> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> <span class="material-icons cursor-icon">create</span> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element" (click)="deleteList(element)">
+                        <span class="material-icons cursor-icon">clear</span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="countriesList.length == 0" class="h-100">
+        <div class="h-100">
+            <mat-card class="card-no-results">
+                <mat-card-header class="text-center">
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>Usted no posee listas de paises.</mat-card-title>
+                    <mat-card-subtitle>Cree una lista para realizar reportes</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="text-center">
+                    <img class="alert-img" src="../../../assets/img/alert_256.png" />
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

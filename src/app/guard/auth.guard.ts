@@ -13,8 +13,10 @@ export class AuthGuard implements CanActivate {
   }
   
   canActivate(){
-    if(this.authService.getCurrentUser()){
+    let user = this.authService.getCurrentUser()
+    if(user){
       //login true
+      this.authService.setTitle(user.firstName);
       return true;
     }else{
       this.router.navigate(['/login']);

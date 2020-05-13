@@ -1,0 +1,36 @@
+<div class="card h-100" style="width: 95%;">
+    <mat-card class="card_body text-center h3" style="padding: 10px !important;">{{message}}</mat-card>
+    <mat-card class="card-countries h-100">
+        <div style="margin: auto"> 
+            <div class="text-center" style="margin-top: 20px">
+                <img class="cont-menu-img" src="../../../assets/img/msg_success.png" />
+            </div>
+
+            <div class="col-md-12 buttons-modal" *ngIf="isConfirm">
+                <div class="col-md-6" style="margin: auto">
+                    <button class="btn btn-link w-100" (click)="newList()">
+                        Crear otra
+                    </button>
+                </div>
+                <div class="col-md-6" style="padding: 0px;">
+                    <button class="btn btn-secondary w-100" (click)="viewLists()">
+                        Ver mis Listas
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-12 buttons-modal" *ngIf="isDelete">
+                <div class="col-md-6" style="margin: auto">
+                    <button class="btn btn-light w-100" (click)="closeModal()">
+                        Cancelar
+                    </button>
+                </div>
+                <div class="col-md-6" style="padding: 0px;">
+                    <button class="btn btn-danger w-100" (click)="deleteList()">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

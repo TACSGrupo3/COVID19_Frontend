@@ -112,7 +112,7 @@ export class AuthService {
         let user_string = localStorage.getItem("currentUser");
         if (!isNullOrUndefined(user_string)) {
             let user = JSON.parse(user_string);
-            if (user.username.toLowerCase() == "admin") { //Todo: Manejar con roles
+            if (user.userRole.roleType === "ADMIN") {
                 this.isAdmin = true;
             } else {
                 this.isAdmin = false;
@@ -121,6 +121,11 @@ export class AuthService {
         } else {
             return null;
         }
+    }
+
+    getUserId(){
+        let user : UserModel = this.getCurrentUser();
+        if(user != null) return user.id;
     }
 
     isTokenAvaible(){
