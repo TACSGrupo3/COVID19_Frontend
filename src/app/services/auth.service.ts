@@ -7,15 +7,23 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable()
 export class AuthService {
+    static getToken() {
+        let token = localStorage.getItem("accessToken");
+        if (!isNullOrUndefined(token)) {
+            return token;
+        } else {
+            return null;
+        }
+    }
     readonly SERVIDOR_API: string = "/api/";
     public isAdmin: boolean;
     public titleName: String = "a Covid19";
 
-    public loggedWithGoogle : boolean = false;
+    public loggedWithGoogle: boolean = false;
     constructor(private http: HttpClient, public afAuth: AngularFireAuth) { }
 
-    setTitle(title : any){
-        if(title == null)
+    setTitle(title: any) {
+        if (title == null)
             this.titleName = "a Covid19"
         else
             this.titleName = title;
@@ -48,7 +56,7 @@ export class AuthService {
         return this.postRequest("registration", user);
     }
 
-    loginUser(user: UserModel) : Observable<any>{
+    loginUser(user: UserModel): Observable<any> {
         var url: string;
         url = this.SERVIDOR_API + "session";
         let myHeaders: HttpHeaders = new HttpHeaders();
@@ -57,8 +65,8 @@ export class AuthService {
         return this.http.post(url, user, options);
     }
 
-    loginUserWithSocial(data: any) : Observable<any>{
-        let user : UserModel = new UserModel();
+    loginUserWithSocial(data: any): Observable<any> {
+        let user: UserModel = new UserModel();
         user.firstName = data.user.displayName;
         user.username = data.user.email;
         var url: string;
@@ -74,45 +82,45 @@ export class AuthService {
         localStorage.removeItem("currentUser");
         localStorage.removeItem("accessToken");
 
-        if(this.loggedWithGoogle){
+        if (this.loggedWithGoogle) {
             this.afAuth.signOut();
         }
     }
 
     setUser(user: UserModel): void {
-        if(user != null){
+        if (user != null) {
             let user_string = JSON.stringify(user);
             localStorage.setItem("currentUser", user_string);
-        }else{
+        } else {
             localStorage.clear();
         }
-        
+
     }
 
     setToken(token): void {
         localStorage.setItem("accessToken", token);
     }
-    
-    cleanLocalStorage(){
+
+    cleanLocalStorage() {
         this.setUser(null);
     }
 
     //MANEJO DEL TOKEN 
 
-    getToken(){
-       let token = localStorage.getItem("accessToken");
-       if(!isNullOrUndefined(token)){
-           return token;
-       }else{
-           return null;
-       }
+    getToken() {
+        let token = localStorage.getItem("accessToken");
+        if (!isNullOrUndefined(token)) {
+            return token;
+        } else {
+            return null;
+        }
     }
-    
+
     getCurrentUser() {
         let user_string = localStorage.getItem("currentUser");
         if (!isNullOrUndefined(user_string)) {
             let user = JSON.parse(user_string);
-            if (user.userRole.roleType === "ADMIN") {
+            if (user.userRole === "ADMIN") {
                 this.isAdmin = true;
             } else {
                 this.isAdmin = false;
@@ -123,16 +131,16 @@ export class AuthService {
         }
     }
 
-    getUserId(){
-        let user : UserModel = this.getCurrentUser();
-        if(user != null) return user.id;
+    getUserId() {
+        let user: UserModel = this.getCurrentUser();
+        if (user != null) return user.id;
     }
 
-    isTokenAvaible(){
-        if(this.getToken() != null && this.getCurrentUser() != null)
+    isTokenAvaible() {
+        if (this.getToken() != null && this.getCurrentUser() != null)
             return true;
         return false;
     }
-    
+
 }
 

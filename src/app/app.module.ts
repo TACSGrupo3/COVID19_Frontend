@@ -10,7 +10,7 @@ import { MaterialModule } from './material-module';
 import { HomeComponent } from './components/home/home.component';
 import { CountriesListComponent } from './components/countriesList/countriesList.component';
 import { CountriesServices } from './services/countries.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +28,7 @@ import { AngularDualListBoxModule } from 'angular-dual-listbox';
 import { NewCountriesListComponent } from './components/countriesList/new-countries-list/new-countries-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ConfirmModalComponent } from './components/countriesList/confirm-modal/confirm-modal.component';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,11 @@ import { ConfirmModalComponent } from './components/countriesList/confirm-modal/
     ChartsModule,
     ReactiveFormsModule
   ],
-  providers: [
+  providers: [ {
+    provide : HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi   : true,
+  },
     FormBuilder,
     AuthService,
     CountriesServices,
