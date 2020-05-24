@@ -42,10 +42,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/reports', { id: 1 }]);
   }
 
-  openMenu(menu: any){
-    console.log(menu);
-  }
-
   tooglePanel(){
     this.open = !this.open; 
   }

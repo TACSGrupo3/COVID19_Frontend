@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json --ssl --ssl-key C:/Users/franc/certificates/localhost.key  --ssl-cert C:/Users/franc/certificates/localhost.crt --host 0.0.0.0",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

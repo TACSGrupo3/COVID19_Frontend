@@ -6,6 +6,7 @@ import { CountriesListModel } from 'src/app/model/countriesList.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -18,9 +19,10 @@ export class CountriesListComponent implements OnInit {
   countriesList: Array<CountriesListModel> = new Array<CountriesListModel>();
 
   constructor(private authService: AuthService, private countriesService: CountriesServices,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,private spinnerService : NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinnerService.show();
     this.getCountriesListsOfUser();
   }
 
@@ -28,7 +30,9 @@ export class CountriesListComponent implements OnInit {
     this.countriesService.getCountriesListOfUser(this.authService.getCurrentUser()).subscribe(response => {
       if (response != null) {
         this.countriesList = response;
-        console.log(this.countriesList);
+        setTimeout(() =>{
+          this.spinnerService.hide();
+        }, 2000);
       }
     });
   }
