@@ -53,7 +53,7 @@ export class AuthService {
     }
 
     registration(user: UserModel) {
-        return this.postRequest("registration", user);
+        return this.postRequest("users", user);
     }
 
     loginUser(user: UserModel): Observable<any> {

@@ -20,7 +20,8 @@ const routes: Routes = [
   { path: 'newCountriesList', component: NewCountriesListComponent, canActivate: [AuthGuard]},
   { path: 'countriesList', component: CountriesListComponent, canActivate: [AuthGuard]},
   { path: 'testServices', component: TestServicesComponent, canActivate: [AuthGuard]},
-  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard]},
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard]},  
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

@@ -59,7 +59,7 @@ export class TestServicesComponent implements OnInit {
     serviceGetCountriesListOfUser.name = "getCountriesListOfUser";
     serviceGetCountriesListOfUser.url = "/countriesList";
     serviceGetCountriesListOfUser.method = "GET";
-    serviceGetCountriesListOfUser.testParam = "";
+    serviceGetCountriesListOfUser.testParam = this.createUserWithCountriesToModify();
     serviceGetCountriesListOfUser.status = false;
     serviceGetCountriesListOfUser.isLoading = false;
     this.listServices.push(serviceGetCountriesListOfUser);
@@ -76,7 +76,7 @@ export class TestServicesComponent implements OnInit {
     let serviceModifyListCountries = new ServiceTest();
     serviceModifyListCountries.name = "modifyCountriesList";
     serviceModifyListCountries.url = "/countriesList/{{countriesListId}}";
-    serviceModifyListCountries.method = "PATCH";
+    serviceModifyListCountries.method = "PUT";
     serviceModifyListCountries.testParam = this.createUserWithCountriesToModify();
     serviceModifyListCountries.status = false;
     serviceModifyListCountries.isLoading = false;
@@ -132,7 +132,7 @@ export class TestServicesComponent implements OnInit {
     report.name = "getReport";
     report.url = "/report?country={{countryId}}&offset={{offset}}";
     report.method = "GET";
-    report.testParam = ["Argentina", 1, "Brasil", 2];
+    report.testParam = [7, "03/01/2020", 22, "04/01/2020"];
     report.status = false;
     report.isLoading = false;
     this.listServices.push(report);

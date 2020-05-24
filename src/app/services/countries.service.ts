@@ -28,13 +28,13 @@ export class CountriesServices {
         return this.http.post(url, body,options);
     }
 
-    patchRequest(servicio: string, body: any, idToModify : any) : Observable<any> {
+    putRequest(servicio: string, body: any, idToModify : any) : Observable<any> {
         var url: string;
         url = this.SERVIDOR_API + servicio + "/" + idToModify;
         let myHeaders: HttpHeaders = new HttpHeaders();
         let options = { headers : myHeaders };
         
-        return this.http.patch(url, body,options);
+        return this.http.put(url, body,options);
     }
 
     deleteRequest(servicio: string, params : any) : Observable<any>{
@@ -81,7 +81,7 @@ export class CountriesServices {
     }
 
     modifyCountriesList(user : UserModel){
-        return this.patchRequest("countriesList",user.countrieList, user.id);
+        return this.putRequest("countriesList",user.countrieList, user.id);
     }
 
     deleteCountriesList(countriesListId : number){
