@@ -11,7 +11,7 @@ export class AdminCountriesListComponent implements OnInit {
 
   constructor(private adminService: AdminService) { }
 
-  countriesList: Array<CountriesListModel>;
+  countriesList: Array<CountriesListModel> = new Array<CountriesListModel>();
 
   ngOnInit(): void {
     this.today();
@@ -39,6 +39,22 @@ export class AdminCountriesListComponent implements OnInit {
     this.adminService.getCountriesLists().subscribe(data => {
       this.countriesList = data;
     });
+  }
+
+  filterBy(tab){
+    switch(tab.index){
+      case 0:
+        this.today();
+        break;
+      case 1:
+        this.last3Days();
+        break;
+      case 2:
+        this.lastWeekDays();
+        break;
+      case 3: 
+        this.allTimes();
+    }
   }
 
 
