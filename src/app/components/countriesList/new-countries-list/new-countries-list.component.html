@@ -9,7 +9,7 @@
 
             <mat-form-field class="col-md-3 col-5 col-xl-3 col-lg-3" style="margin-bottom: 10%">
                 <mat-label>Nombre de la Lista</mat-label>
-                <input matInput formControlName="nameList" (ngModelChange)="isValidName()"
+                <input matInput [(ngModel)]="countriesList.name" formControlName="nameList" (ngModelChange)="isValidName()"
                     placeholder="Ingrese el nombre de la lista.." required>
             </mat-form-field>
         </mat-step>

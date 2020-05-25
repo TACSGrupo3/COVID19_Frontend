@@ -184,7 +184,7 @@ export class LoginComponent implements OnInit {
 
   setAdminFlag(data: any) {
     if (data != null && data.username != null &&
-      data.username.toLowerCase() == "admin") { //Todo: Manejar con roles
+      data.userRole == "ADMIN") { 
       this.authService.isAdmin = true;
     } else {
       this.authService.isAdmin = false;

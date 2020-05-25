@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,11 +16,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./countriesList.component.scss']
 })
 export class CountriesListComponent implements OnInit {
+  isLoading : boolean = true;
   displayedColumns: string[] = ['name', 'cant', 'report', 'edit', 'delete'];
   countriesList: Array<CountriesListModel> = new Array<CountriesListModel>();
 
   constructor(private authService: AuthService, private countriesService: CountriesServices,
-    public dialog: MatDialog,private spinnerService : NgxSpinnerService) { }
+    public dialog: MatDialog,private spinnerService : NgxSpinnerService, private router : Router) { }
 
   ngOnInit(): void {
     this.spinnerService.show();
@@ -31,10 +33,15 @@ export class CountriesListComponent implements OnInit {
       if (response != null) {
         this.countriesList = response;
         setTimeout(() =>{
+          this.isLoading = false;
           this.spinnerService.hide();
         }, 2000);
       }
     });
+  }
+
+  modifyList(list: any){
+      this.router.navigate(['/newCountriesList'], {state: {data: {list}}});
   }
 
   deleteList(list : any){
@@ -52,12 +59,8 @@ export class CountriesListComponent implements OnInit {
 
       if(isDeleted){
         this.countriesService.deleteCountriesList(list.id).subscribe(data =>{
-          console.log("Se eliminó la lista");
           let index = this.countriesList.findIndex(element => element.id == list.id);
-          console.log("INDEX: ", index);
-          console.log("Lista Antes:", this.countriesList);
-          this.countriesList = this.countriesList.splice(index,0);
-          console.log("Lista Despues:", this.countriesList);
+          this.countriesList.splice(index,1);
         });
       }
     });

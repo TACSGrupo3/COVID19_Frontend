@@ -1,0 +1,144 @@
+<div class="desktopView">
+    <form class="example-form">
+        <mat-grid-list cols="3" rows="2">
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-card class="w-100 h-100">
+                    <mat-card-title class="text-center">Lista de Paises 1</mat-card-title>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Selecciona una lista" aria-label="Number" matInput
+                            [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="listAOption"
+                            (change)="changeInput()">
+                        <button mat-button *ngIf="listA != null" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="listAOption=''; listA=null; listIntersected = null;">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                (onSelectionChange)='selectListA($event.source.value)'>
+                                {{option.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <div class="list-container">
+                        <mat-list role="list" *ngIf="listA != null">
+                            <mat-list-item role="listitem" *ngFor="let country of listA.countries">{{country.name}}
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-card class="w-100 h-100">
+                    <mat-card-title class="text-center">Paises en común</mat-card-title>
+                    <mat-card-subtitle *ngIf="listIntersected != null" class="text-center">
+                        Cantidad de Paises en común: {{listIntersected.length}}</mat-card-subtitle>
+                    <mat-list role="list" *ngIf="listIntersected != null">
+                        <mat-list-item role="listitem" *ngFor="let country of listIntersected">{{country.name}}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-card class="w-100 h-100">
+                    <mat-card-title class="text-center">Lista de Paises 2</mat-card-title>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Selecciona una lista" aria-label="Number" matInput
+                            [formControl]="myControl2" [matAutocomplete]="auto2" [(ngModel)]="listBOption"
+                            (change)="changeInput()">
+                        <button mat-button *ngIf="listB != null" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="listBOption=''; listB=null; listIntersected = null;">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)='selectListB($event.option.value)'>
+                            <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <div class="list-container">
+                        <mat-list role="list" *ngIf="listB != null">
+                            <mat-list-item role="listitem" *ngFor="let country of listB.countries">{{country.name}}
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>
+
+
+<div class="mobileView">
+    <form class="example-form">
+        <mat-grid-list cols="2" rows="2">
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-card class="w-100 h-100">
+                    <mat-card-title class="text-center">Lista de Paises 1</mat-card-title>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Selecciona una lista" aria-label="Number" matInput
+                            [formControl]="myControlMobile" [matAutocomplete]="auto3" [(ngModel)]="listAOption"
+                            (change)="changeInput()">
+                        <button mat-button *ngIf="listA != null" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="listAOption=''; listA=null; listIntersected = null;">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                (onSelectionChange)='selectListA($event.source.value)'>
+                                {{option.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <div class="list-container">
+                        <mat-list role="list" *ngIf="listA != null">
+                            <mat-list-item role="listitem" *ngFor="let country of listA.countries">{{country.name}}
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </mat-card>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-card class="w-100 h-100">
+                    <mat-card-title class="text-center">Lista de Paises 2</mat-card-title>
+                    <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Selecciona una lista" aria-label="Number" matInput
+                            [formControl]="myControl2Mobile" [matAutocomplete]="auto4" [(ngModel)]="listBOption"
+                            (change)="changeInput()">
+                        <button mat-button *ngIf="listB != null" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="listBOption=''; listB=null; listIntersected = null;">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete #auto4="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)='selectListB($event.option.value)'>
+                            <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <div class="list-container">
+                        <mat-list role="list" *ngIf="listB != null">
+                            <mat-list-item role="listitem" *ngFor="let country of listB.countries">{{country.name}}
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </mat-card>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan]="2" [rowspan]="1">
+                <mat-card class="w-100 h-100 mt-5">
+                    <mat-card-title class="text-center">Paises en común</mat-card-title>
+                    <mat-card-subtitle *ngIf="listIntersected != null" class="text-center">
+                        Cantidad de Paises en común: {{listIntersected.length}}</mat-card-subtitle>
+                    <mat-list role="list" *ngIf="listIntersected != null">
+                        <mat-list-item role="listitem" *ngFor="let country of listIntersected">{{country.name}}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>

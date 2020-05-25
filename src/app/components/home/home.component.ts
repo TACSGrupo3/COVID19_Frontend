@@ -3,6 +3,7 @@ import { CountriesServices } from 'src/app/services/countries.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 export interface DialogData {
   nearCountries: any;
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   public enableLocation : boolean = false;
   public open : boolean = false;
   public userAgent: any;
-  constructor(private countriesServices: CountriesServices,
+  constructor(private countriesServices: CountriesServices, public authService : AuthService,
     private router: Router,public dialog: MatDialog) { }
 
   ngOnInit(): void {

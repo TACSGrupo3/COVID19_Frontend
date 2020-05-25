@@ -29,6 +29,10 @@ import { NewCountriesListComponent } from './components/countriesList/new-countr
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ConfirmModalComponent } from './components/countriesList/confirm-modal/confirm-modal.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { UserDataComponent } from './components/user-data/user-data.component';
+import { CommonCountriesComponent } from './components/common-countries/common-countries.component';
+import { UserIntrestedComponent } from './components/user-intrested/user-intrested.component';
+import { AdminCountriesListComponent } from './components/admin-countries-list/admin-countries-list.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import { AuthInterceptor } from './services/auth.interceptor';
     TestServicesComponent,
     NewCountriesListComponent,
     DialogComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    UserDataComponent,
+    CommonCountriesComponent,
+    UserIntrestedComponent,
+    AdminCountriesListComponent
   ],
   imports: [
     AngularDualListBoxModule,

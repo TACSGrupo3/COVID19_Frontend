@@ -16,7 +16,7 @@ export class AuthService {
         }
     }
     readonly SERVIDOR_API: string = "/api/";
-    public isAdmin: boolean;
+    public isAdmin: boolean = false;
     public titleName: String = "a Covid19";
 
     public loggedWithGoogle: boolean = false;

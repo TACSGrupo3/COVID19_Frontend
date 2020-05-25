@@ -1,0 +1,37 @@
+.example-form {
+    width: 100%;
+    height: 100%;
+    margin-top: 15px;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+.mat-card{
+    width: 90% !important;
+}
+
+.list-container{
+    overflow: auto;
+    height: 100%;
+}
+
+.mobileView{
+    display: none !important;
+    margin-top: 15px;
+}
+
+.desktopView{
+    display: initial !important;
+}
+
+@media (max-width:840px){
+    .mobileView{
+        display: initial !important;
+    }
+
+    .desktopView{
+        display: none !important;
+    }
+}

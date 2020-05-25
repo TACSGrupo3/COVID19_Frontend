@@ -80,8 +80,8 @@ export class CountriesServices {
         return this.postRequest("users", countryList, userId + "/countriesList");
     }
 
-    modifyCountriesList(user : UserModel){
-        return this.putRequest("countriesList",user.countrieList, user.id);
+    modifyCountriesList(listToModify: CountriesListModel){
+        return this.putRequest("countriesList",listToModify, listToModify.id);
     }
 
     deleteCountriesList(countriesListId : number){

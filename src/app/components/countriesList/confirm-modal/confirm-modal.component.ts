@@ -15,7 +15,8 @@ export class ConfirmModalComponent implements OnInit {
 
   public isConfirm: boolean = false;
   public isDelete: boolean = false;
-
+  public isEdit: boolean = false;
+  
   constructor(public router: Router,
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialog) { }
@@ -30,6 +31,9 @@ export class ConfirmModalComponent implements OnInit {
         break;
       case "delete":
         this.isDelete = true;
+        break;
+      case "edit":
+        this.isEdit = true;
         break;
     }
   }

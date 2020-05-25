@@ -1,0 +1,55 @@
+<mat-card>
+    <mat-card-title>Usuarios interesados en un País</mat-card-title>
+    <mat-card-subtitle>Seleccione un país para listar los usuarios que se intersearon en él.</mat-card-subtitle>
+    <div>
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <input type="text" placeholder="Seleccione un país" aria-label="Number" matInput [(ngModel)]="countrySelected"
+                    [formControl]="myControl" [matAutocomplete]="auto">
+                <button mat-button *ngIf="countrySelected != null" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="clearInput()">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='selectCountry()'>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <table mat-table [dataSource]="usersIntrested" class="mat-elevation-z8 w-100"
+                 *ngIf="usersIntrested != null">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef> ID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="firstName">
+                  <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                  <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="lastName">
+                  <th mat-header-cell *matHeaderCellDef> Apellido </th>
+                  <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="username">
+                  <th mat-header-cell *matHeaderCellDef> Username </th>
+                  <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+        </form>
+    </div>
+</mat-card>

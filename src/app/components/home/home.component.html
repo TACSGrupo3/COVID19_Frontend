@@ -1,13 +1,13 @@
 <div class="w-100 h-100">
   <mat-grid-list cols="4" rows="4">
     <mat-grid-tile [colspan]="3" [rowspan]="4" class="homeClass">
-      <button mat-fab  *ngIf="enableLocation" (click)="showModal()" matTooltip="Ver paises cercanos a ti"
-        color="primary"class="fabButton">
+      <button mat-fab *ngIf="enableLocation" (click)="showModal()" matTooltip="Ver paises cercanos a ti" color="primary"
+        class="fabButton">
         <span class="material-icons">
           gps_fixed
         </span>
       </button>
-      <div class="cont-menu">
+      <div class="cont-menu" *ngIf="!authService.isAdmin">
         <ng-container>
           <div class="cont-menu-div" [routerLink]="['/newCountriesList']">
             <img class="cont-menu-img" src="../../../assets/img/crear_listas.png" />
@@ -21,6 +21,49 @@
           </div>
         </ng-container>
       </div>
+
+      <div *ngIf="authService.isAdmin">
+        <div class="cont-menu">
+          <ng-container>
+            <div class="cont-menu-div" [routerLink]="['/newCountriesList']">
+              <img class="cont-menu-img" src="../../../assets/img/crear_listas.png" />
+              <span class="cont-menu-span">CREAR LISTAS DE PAISES</span>
+            </div>
+          </ng-container>
+          <ng-container>
+            <div class="cont-menu-div" [routerLink]="['/countriesList']">
+              <img class="cont-menu-img" src="../../../assets/img/ver_listas.png" />
+              <span class="cont-menu-span">LISTAS DE PAISES</span>
+            </div>
+          </ng-container>
+        </div>
+        <div class="cont-menu-admin">
+          <ng-container>
+            <div class="cont-menu-div" [routerLink]="['/userData']">
+              <img class="cont-menu-img" src="../../../assets/img/ver_usuario.png" />
+              <span class="cont-menu-span">VER DATOS DE UN USUARIO</span>
+            </div>
+          </ng-container>
+          <ng-container>
+            <div class="cont-menu-div" [routerLink]="['/commonCountries']">
+              <img class="cont-menu-img" src="../../../assets/img/paises_comun.png" />
+              <span class="cont-menu-span">PAISES EN COMÚN ENTRE LISTAS</span>
+            </div>
+          </ng-container>
+          <ng-container>
+            <div class="cont-menu-div" [routerLink]="['/userIntrested']">
+              <img class="cont-menu-img" src="../../../assets/img/usuarios_interesados.png" />
+              <span class="cont-menu-span">USUARIOS INTERESADOS EN UN PAIS</span>
+            </div>
+          </ng-container>
+          <ng-container>
+            <div class="cont-menu-div" [routerLink]="['/adminCountriesList']">
+              <img class="cont-menu-img" src="../../../assets/img/listas_paises.png" />
+              <span class="cont-menu-span">CANTIDAD TOTAL DE LISTAS</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </mat-grid-tile>
 
 
@@ -29,7 +72,8 @@
         <mat-icon class="m-icon">{{'keyboard_arrow_right'}}</mat-icon>
       </div>
       <div class="card h-100" style="width: 95%;">
-        <mat-card class="card_body text-center h3" style="padding: 10px !important;"> Paises cercanos a tu ubicación</mat-card>
+        <mat-card class="card_body text-center h3" style="padding: 10px !important;"> Paises cercanos a tu ubicación
+        </mat-card>
         <mat-card class="card-countries">
           <mat-list>
             <mat-list-item *ngFor="let item of nearCountries; let i = index" class="card_body text-center">

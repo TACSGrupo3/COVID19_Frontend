@@ -77,7 +77,7 @@ export class TestServicesComponent implements OnInit {
     serviceModifyListCountries.name = "modifyCountriesList";
     serviceModifyListCountries.url = "/countriesList/{{countriesListId}}";
     serviceModifyListCountries.method = "PUT";
-    serviceModifyListCountries.testParam = this.createUserWithCountriesToModify();
+    serviceModifyListCountries.testParam = this.createListToModify();
     serviceModifyListCountries.status = false;
     serviceModifyListCountries.isLoading = false;
     this.listServices.push(serviceModifyListCountries);
@@ -161,6 +161,7 @@ export class TestServicesComponent implements OnInit {
     userWithCountries.username = "admin";
     userWithCountries.firstName = "admin";
     userWithCountries.lastName = "admin";
+    let listCountriesList : Array<CountriesListModel> = new Array<CountriesListModel>();
     let countriesList: CountriesListModel = new CountriesListModel();
     let argentina: CountryModel = new CountryModel();
     argentina.id = 1;
@@ -173,9 +174,23 @@ export class TestServicesComponent implements OnInit {
     countriesList.countries.push(argentina);
     countriesList.countries.push(brasil);
     countriesList.creationDate = new Date();
-    userWithCountries.countrieList = countriesList;
+    listCountriesList.push(countriesList);
+    userWithCountries.countrieList = listCountriesList;
 
     return userWithCountries;
+  }
+
+  createListToModify() : CountriesListModel{
+    let countriesList: CountriesListModel = new CountriesListModel();
+    let argentina: CountryModel = new CountryModel();
+    argentina.id = 7;
+    argentina.name = "Argentina";
+    countriesList.id = 1;
+    countriesList.name = "Arg";
+    countriesList.countries.push(argentina);
+    countriesList.creationDate = new Date();
+
+    return countriesList
   }
 
   testService() {

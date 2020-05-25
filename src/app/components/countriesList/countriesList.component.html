@@ -5,12 +5,13 @@
             <span class="material-icons">add</span>
         </button>
     </div>
-    <div *ngIf="countriesList.length > 0">
+    <div *ngIf="countriesList.length > 0 && !isLoading">
+        <!-- VISTA DESKTOP -->
         <div class="cards" class="viewDesktop">
             <div *ngFor="let list of countriesList">
                 <mat-card class="list-card">
                     <mat-card-header class="text-center">
-                        <span class="material-icons cursor-icon">clear</span>
+                        <span class="material-icons cursor-icon" (click)="deleteList(list)">clear</span>
                         <mat-card-title>{{list.name}}</mat-card-title>
                         <mat-card-subtitle>{{list.countries.length}} paises</mat-card-subtitle>
                     </mat-card-header>
@@ -28,12 +29,14 @@
                         </div>
                     </mat-card-content>
                     <mat-card-actions class="text-center">
-                        <button mat-button>EDITAR</button>
+                        <button mat-button (click)="modifyList(list)">EDITAR</button>
                         <button mat-button>VER REPORTE</button>
                     </mat-card-actions>
                 </mat-card>
             </div>
         </div>
+
+        <!-- VISTA MOBILE -->
 
         <div class="viewMobile" style="margin-top: 75px;">
             <table mat-table [dataSource]="countriesList" class="mat-elevation-z8 dataTable">
@@ -54,7 +57,7 @@
 
                 <ng-container matColumnDef="edit">
                     <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element"> <span class="material-icons cursor-icon">create</span> </td>
+                    <td mat-cell *matCellDef="let element" (click)="modifyList(element)"> <span class="material-icons cursor-icon">create</span> </td>
                 </ng-container>
 
                 <ng-container matColumnDef="delete">
@@ -69,7 +72,7 @@
             </table>
         </div>
     </div>
-    <div *ngIf="countriesList.length == 0" class="h-100">
+    <div *ngIf="countriesList.length == 0 && !isLoading" class="h-100">
         <div class="h-100">
             <mat-card class="card-no-results">
                 <mat-card-header class="text-center">

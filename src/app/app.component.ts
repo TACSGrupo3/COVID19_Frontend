@@ -24,7 +24,7 @@ export class AppComponent implements OnDestroy,OnInit {
   }
 
   ngOnInit():void{
-    this.spinner();
+    //this.spinner();
   }
 
   ngOnDestroy(): void {

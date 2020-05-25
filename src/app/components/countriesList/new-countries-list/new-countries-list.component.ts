@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CountriesServices } from 'src/app/services/countries.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserModel } from 'src/app/model/user.model';
 
 declare var $: any;
 
@@ -13,7 +15,7 @@ export interface ConfirmDialog {
   message: any;
   type: string;
 
-  isDeleted : boolean;
+  isDeleted: boolean;
 }
 
 @Component({
@@ -30,11 +32,19 @@ export class NewCountriesListComponent implements OnInit {
   isValid: boolean = false;
 
   isSaved: boolean = false;
-
+  listToModify: CountriesListModel;
   countriesList: CountriesListModel;
 
+  error: String;
+
+  mode: number = 0;
+
   constructor(private authService: AuthService, private countriesService: CountriesServices,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog, private router: Router) {
+    if (this.router.getCurrentNavigation().extras.state != null &&
+      this.router.getCurrentNavigation().extras.state.data != null)
+      this.listToModify = this.router.getCurrentNavigation().extras.state.data.list;
+  }
 
   ngOnInit(): void {
     this.countriesList = new CountriesListModel();
@@ -46,7 +56,18 @@ export class NewCountriesListComponent implements OnInit {
       'nameList': new FormControl(this.countriesList.name),
       'countriesList': new FormControl(this.countriesList.countries)
     });
+
+    if (this.listToModify) {
+      this.loadEntity();
+    }
     this.findAll();
+  }
+
+  loadEntity() {
+    this.mode = 1;
+    this.countriesList = this.listToModify;
+    this.formGroup.get("nameList").setValue(this.countriesList.name);
+    this.isValid = true;
   }
 
   ngAfterViewInit() {
@@ -108,26 +129,42 @@ export class NewCountriesListComponent implements OnInit {
   }
 
   save() {
-    if (this.isSaved) {
+
+    if (this.mode == 0) {
       let lists: Array<CountriesListModel> = new Array<CountriesListModel>();
       lists.push(this.countriesList);
       this.countriesService.addCountriesList(this.authService.getUserId().toString(), lists)
         .subscribe(data => {
           this.isSaved = true;
           this.showModal();
-        })
-    }else{
-      this.showModal();
+        }, error => {
+          this.error = error.message;
+        });
+    } else {
+      this.countriesService.modifyCountriesList(this.countriesList)
+        .subscribe(data => {
+          this.isSaved = true;
+          this.showModal();
+        }, error => {
+          this.error = error.message;
+        });
     }
   }
 
   showModal() {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      width: '500px',
-      height: '500px',
-      data: { message: "Se ha creado la lista con éxito!", type:"confirm"}
-    });
-
+    if (this.mode == 0) {
+      const dialogRef = this.dialog.open(ConfirmModalComponent, {
+        width: '500px',
+        height: '500px',
+        data: { message: "Se ha creado la lista con éxito!", type: "confirm" }
+      });
+    } else {
+      const dialogRef = this.dialog.open(ConfirmModalComponent, {
+        width: '500px',
+        height: '500px',
+        data: { message: "Se ha modificado la lista con éxito!", type: "edit" }
+      });
+    }
   }
 
 

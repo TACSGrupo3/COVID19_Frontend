@@ -9,6 +9,10 @@ import { AuthGuard } from './guard/auth.guard';
 import { TestServicesComponent } from './components/test-services/test-services.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { NewCountriesListComponent } from './components/countriesList/new-countries-list/new-countries-list.component';
+import { UserDataComponent } from './components/user-data/user-data.component';
+import { CommonCountriesComponent } from './components/common-countries/common-countries.component';
+import { UserIntrestedComponent } from './components/user-intrested/user-intrested.component';
+import { AdminCountriesListComponent } from './components/admin-countries-list/admin-countries-list.component';
 
 
 const routes: Routes = [
@@ -21,6 +25,10 @@ const routes: Routes = [
   { path: 'countriesList', component: CountriesListComponent, canActivate: [AuthGuard]},
   { path: 'testServices', component: TestServicesComponent, canActivate: [AuthGuard]},
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard]},  
+  { path: 'userData', component: UserDataComponent, canActivate: [AuthGuard]},  
+  { path: 'commonCountries', component: CommonCountriesComponent, canActivate: [AuthGuard]}, 
+  { path: 'userIntrested', component: UserIntrestedComponent, canActivate: [AuthGuard]}, 
+  { path: 'adminCountriesList', component: AdminCountriesListComponent, canActivate: [AuthGuard]}, 
   { path: '**', redirectTo: 'login' }
 ];
 

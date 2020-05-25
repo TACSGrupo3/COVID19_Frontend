@@ -6,6 +6,6 @@ export class UserModel {
     firstName: String;
     lastName: String;
     password: String;
-    countrieList: CountriesListModel;
+    countrieList: Array<CountriesListModel>;
     userRole: String;
 }
