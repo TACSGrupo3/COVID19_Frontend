@@ -8,6 +8,7 @@ import { DataGraphModel } from 'src/app/model/dataGraph.model';
 import { DataSetsGraphModel } from 'src/app/model/dataSetsGraph.model';
 import { BaseChartDirective } from 'ng2-charts';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-graph-report',
@@ -30,7 +31,8 @@ export class GraphReportComponent implements OnInit {
   optionsRecovered: any;
   optionsConfirmed: any;
   constructor(private dataReport: DataReportService, private messageService: MessageService,
-    private reportService: ReportsService, public datepipe: DatePipe, private spinner: NgxSpinnerService) {
+    private reportService: ReportsService, public datepipe: DatePipe, private spinner: NgxSpinnerService,
+    private router: Router) {
     this.optionsDeaths = {
       title: {
         display: true,
@@ -144,10 +146,10 @@ export class GraphReportComponent implements OnInit {
           dataConfirmed[indexLabelDate] = dataReport.confirmed.toString();
 
           if (indexLabelDate - 1 != lastValue && indexLabelDate != 0) {
-            for (i = lastValue; i < indexLabelDate; i++) {
-              dataDeaths[i] = "0";
-              dataRecovered[i] = "0";
-              dataConfirmed[i] = "0";
+            for (let j = lastValue; j < indexLabelDate; j++) {
+              dataDeaths[j] = "0";
+              dataRecovered[j] = "0";
+              dataConfirmed[j] = "0";
             }
           }
 
@@ -195,5 +197,13 @@ export class GraphReportComponent implements OnInit {
     this.messageService.add({ severity: 'info', summary: 'Data Selected', 'detail': this.dataConfirmed.datasets[event.element._datasetIndex].data[event.element._index] });
   }
 
+
+  back(){
+    this.router.navigate(['/reports']);
+  }
+
+  tableView(){
+    this.router.navigate(["/tableReport"]);
+  }
 
 }

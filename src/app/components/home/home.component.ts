@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
         this.countriesServices.findNearCountries(data.coords.latitude, data.coords.longitude, cantidadPaises.toString()).subscribe(data => {
           this.enableLocation = true;
           this.nearCountries = data;
-          console.log(data);
         }, error => {
           console.log(error);
           this.enableLocation = false;

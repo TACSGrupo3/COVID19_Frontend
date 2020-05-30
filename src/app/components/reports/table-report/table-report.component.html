@@ -1,4 +1,8 @@
-<div style="display: inline-flex;width: 100%;">
+<div style="text-align:center; width: 100%;">
+    <div class="buttonsDiv">
+        <button class="btn btn-secondary buttons" (click)="back()" >Volver</button>
+        <button class="btn btn-primary buttons" (click)="graphView()">Ver gráfico</button>
+    </div>
     <div style="display: inline-flex;margin:auto;">
         <div class="divCountry" *ngFor="let countries of listOfCountries">
             <mat-card>

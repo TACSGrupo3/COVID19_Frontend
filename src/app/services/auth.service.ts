@@ -22,13 +22,6 @@ export class AuthService {
     public loggedWithGoogle: boolean = false;
     constructor(private http: HttpClient, public afAuth: AngularFireAuth) { }
 
-    setTitle(title: any) {
-        if (title == null)
-            this.titleName = "a Covid19"
-        else
-            this.titleName = title;
-    }
-
     getRequest(servicio: string, params: Array<any>): Observable<any> {
         var url: string;
         let paramsString = this.paramsString(params);
@@ -141,5 +134,20 @@ export class AuthService {
         return false;
     }
 
+    setAdminFlag(data: any) {
+        if (data != null && data.username != null &&
+          data.userRole == "ADMIN") { 
+          this.isAdmin = true;
+        } else {
+          this.isAdmin = false;
+        }
+      }
+    
+      setTitle(title: any) {
+        if (title == null)
+            this.titleName = "a Covid19"
+        else
+            this.titleName = title;
+      }
 }
 

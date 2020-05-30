@@ -13,3 +13,20 @@
 // .divContainer{
 //     text-align: center;
 // }
+
+.divGraph{
+    width: 80%;
+    margin: auto;
+}
+@media (max-width:840px){
+    .divGraph{
+        width: 100%;
+        margin: auto;
+    }
+}
+.buttonsDiv{
+    text-align: end;
+}
+.buttons{
+    margin:5px;
+}

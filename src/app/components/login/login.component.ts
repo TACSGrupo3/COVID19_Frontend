@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     return this.authService.loginUser(this.user).subscribe(data => {
-      this.setAdminFlag(data);
-      this.setTitle(data.firstName);
+      this.authService.setAdminFlag(data);
+      this.authService.setTitle(data.firstName);
 
       this.authService.setUser(data);
       this.authService.setToken(data.token);
@@ -64,8 +64,8 @@ export class LoginComponent implements OnInit {
         this.authService.loginUserWithSocial(credential).subscribe(data => {
           this.router.navigate(['home']);
           this.authService.loggedWithGoogle = true;
-          this.setAdminFlag(null);
-          this.setTitle(data.firstName);
+          this.authService.setAdminFlag(null);
+          this.authService.setTitle(data.firstName);
 
           this.authService.setUser(data);
           this.authService.setToken(data.token);
@@ -104,8 +104,8 @@ export class LoginComponent implements OnInit {
         this.authService.loginUserWithSocial(credential).subscribe(data => {
           this.router.navigate(['home']);
           this.authService.loggedWithGoogle = true;
-          this.setAdminFlag(null);
-          this.setTitle(data.firstName);
+          this.authService.setAdminFlag(null);
+          this.authService.setTitle(data.firstName);
 
           this.authService.setUser(data);
           this.authService.setToken(data.token);
@@ -146,8 +146,8 @@ export class LoginComponent implements OnInit {
       this.authService.loginUserWithSocial(credentials).subscribe(data => {
         this.router.navigate(['home']);
         this.authService.loggedWithGoogle = true;
-        this.setAdminFlag(null);
-        this.setTitle(data.firstName);
+        this.authService.setAdminFlag(null);
+        this.authService.setTitle(data.firstName);
 
         this.authService.setUser(data);
         this.authService.setToken(data.token);
@@ -184,20 +184,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  setAdminFlag(data: any) {
-    if (data != null && data.username != null &&
-      data.userRole == "ADMIN") { 
-      this.authService.isAdmin = true;
-    } else {
-      this.authService.isAdmin = false;
-    }
-  }
-
-  setTitle(firstName: any) {
-    if (firstName != null) {
-      this.authService.setTitle(firstName);
-    } else {
-      this.authService.setTitle(null);
-    }
-  }
+  
+  
 }

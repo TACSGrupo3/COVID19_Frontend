@@ -17,11 +17,7 @@ export class ReportsComponent implements OnInit {
   countriesList: CountriesListModel = new CountriesListModel();
 
   constructor(private router: Router, private dataReport : DataReportService,
-    private spinner: NgxSpinnerService) {
-    // if (this.router.getCurrentNavigation().extras.state != null &&
-    //   this.router.getCurrentNavigation().extras.state.data != null)
-    //  this.countriesList = this.router.getCurrentNavigation().extras.state.data.list;
-  }
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     let list = this.dataReport.getList();

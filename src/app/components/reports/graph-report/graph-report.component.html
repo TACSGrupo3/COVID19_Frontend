@@ -1,14 +1,17 @@
 <mat-card *ngIf="true">
-
-    <div class="">
+    <div class="buttonsDiv">
+        <button class="btn btn-secondary buttons" (click)="back()" >Volver</button>
+        <button class="btn btn-primary buttons" (click)="tableView()">Ver Tabla</button>
+    </div>
+    <div class="divGraph">
         <p-chart #linechart3 type="line" [(data)]="dataConfirmed" [options]="optionsConfirmed" responsive="true"
             (onDataSelect)="selectDataConfirmed($event)"></p-chart>
     </div>
-    <div class="">
+    <div class="divGraph">
         <p-chart #linechart1 type="line" [(data)]="dataDeaths" [options]="optionsDeaths" responsive="true"
             (onDataSelect)="selectDataDeaths($event)"></p-chart>
     </div>
-    <div>
+    <div class="divGraph">
         <p-chart #linechart2 type="line" [(data)]="dataRecovered" [options]="optionsRecovered" responsive="true"
             (onDataSelect)="selectDataRecovered($event)"></p-chart>
     </div>

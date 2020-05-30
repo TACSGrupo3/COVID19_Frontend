@@ -19,10 +19,14 @@ export class RegisterComponent implements OnInit {
 
   onRegister() : void{
     this.authService.registration(this.user).subscribe(user =>{
-      this.authService.setUser(user);
-      let token = user.id;
-      this.authService.setToken(token);
-      this.router.navigate(['/profile']);
+      this.authService.loginUser(this.user).subscribe(userLoged =>{
+        this.authService.setAdminFlag(userLoged);
+        this.authService.setTitle(userLoged.firstName);
+  
+        this.authService.setUser(userLoged);
+        this.authService.setToken(userLoged.token);
+        this.router.navigate(['home']);
+      });
     }),
     error => {
       console.log(error);
