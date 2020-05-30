@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from 'firebase/app';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,14 @@ export class LoginComponent implements OnInit {
   public error: String = "";
   public hide = true;
   constructor(private authService: AuthService, private router: Router,
-    private _snackBar: MatSnackBar, public afAuth: AngularFireAuth) { }
+    private _snackBar: MatSnackBar, public afAuth: AngularFireAuth, private spinnerService : NgxSpinnerService) { }
   durationInSeconds = 5;
 
   ngOnInit(): void {
     if (this.authService.isTokenAvaible()) {
       this.router.navigate(['home']);
     }
+    this.spinnerService.hide();
   }
 
   onLogin() {

@@ -1,0 +1,21 @@
+<div style="display: inline-flex;width: 100%;">
+    <div style="display: inline-flex;margin:auto;">
+        <div class="divCountry" *ngFor="let countries of listOfCountries">
+            <mat-card>
+                <mat-card-title>{{countries.name}}</mat-card-title>
+                <mat-list>
+                    <mat-list-item *ngFor="let data of countries.dataReport">
+
+                        <div mat-subheader class="w-100">{{data.date  | date:'dd-MM-yyyy'}}</div>
+                        <div mat-line style="width: 200px !important;">Confirmados: {{data.confirmed}}</div>
+                        <div mat-line>Muertos: {{data.deaths}}</div>
+                        <div mat-line>Recuperados: {{data.recovered}}</div>
+                        <mat-divider></mat-divider>
+
+
+                    </mat-list-item>
+                </mat-list>
+            </mat-card>
+        </div>
+    </div>
+</div>

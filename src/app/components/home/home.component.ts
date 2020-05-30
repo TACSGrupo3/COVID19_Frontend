@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataReportService } from 'src/app/services/dataReport.service';
 
 export interface DialogData {
   nearCountries: any;
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
   public open : boolean = false;
   public userAgent: any;
   constructor(private countriesServices: CountriesServices, public authService : AuthService,
-    private router: Router,public dialog: MatDialog) { }
+    private router: Router,public dialog: MatDialog, private dataReport : DataReportService) { }
 
   ngOnInit(): void {
     let cantidadPaises = 5;
@@ -40,7 +41,8 @@ export class HomeComponent implements OnInit {
   }
 
   showReport(){
-    this.router.navigate(['/reports', { id: 1 }]);
+    this.dataReport.setList(this.nearCountries);
+    this.router.navigate(['/reports']);
   }
 
   tooglePanel(){

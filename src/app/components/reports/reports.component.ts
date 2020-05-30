@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
-
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { CountriesListModel } from 'src/app/model/countriesList.model';
+import { DataReportService } from 'src/app/services/dataReport.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-reports',
@@ -10,20 +11,40 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'confirmed', 'deaths', 'recovered', 'offset'];
+  public dataSource;
 
-  countriesList : any;
-  idList : any;
+  countriesList: CountriesListModel = new CountriesListModel();
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private router: Router, private dataReport : DataReportService,
+    private spinner: NgxSpinnerService) {
+    // if (this.router.getCurrentNavigation().extras.state != null &&
+    //   this.router.getCurrentNavigation().extras.state.data != null)
+    //  this.countriesList = this.router.getCurrentNavigation().extras.state.data.list;
+  }
 
   ngOnInit(): void {
-    this.idList = this.route.snapshot.paramMap.get('id');
-
-    if(this.idList == null){
-      console.log("Lista cercana");
-    }else{
-      console.log("Lista de ID: " + this.idList);
+    let list = this.dataReport.getList();
+    if(list != null){
+      this.countriesList = list;
+      this.dataSource = new MatTableDataSource(this.countriesList.countries);
     }
   }
 
+  tableView(){
+    this.dataReport.setList(this.countriesList);
+    this.router.navigate(["/tableReport"]);
+  }
+
+  graphView(){
+    this.spinner.show();
+    this.dataReport.setList(this.countriesList);
+    this.router.navigate(["/graphReport"]);
+  }
+
+  offsetSelected(){
+    const offsetSelected = (element) => element.offset != null;
+
+    return this.countriesList.countries.some(offsetSelected);
+  }
 }

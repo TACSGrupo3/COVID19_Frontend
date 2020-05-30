@@ -1,0 +1,37 @@
+<mat-card *ngIf="true">
+
+    <div class="">
+        <p-chart #linechart3 type="line" [(data)]="dataConfirmed" [options]="optionsConfirmed" responsive="true"
+            (onDataSelect)="selectDataConfirmed($event)"></p-chart>
+    </div>
+    <div class="">
+        <p-chart #linechart1 type="line" [(data)]="dataDeaths" [options]="optionsDeaths" responsive="true"
+            (onDataSelect)="selectDataDeaths($event)"></p-chart>
+    </div>
+    <div>
+        <p-chart #linechart2 type="line" [(data)]="dataRecovered" [options]="optionsRecovered" responsive="true"
+            (onDataSelect)="selectDataRecovered($event)"></p-chart>
+    </div>
+
+   
+
+</mat-card>
+
+
+<mat-card *ngIf="false">
+    <div class="divContainer">
+        <p-toast></p-toast>
+        <div class="graphClass">
+            <p-chart #linechart1 type="line" width="40vw" height="80vh" [(data)]="dataDeaths" [options]="optionsDeaths"
+                responsive="true" (onDataSelect)="selectDataDeaths($event)"></p-chart>
+
+            <p-chart #linechart2 type="line" width="40vw" height="80vh" [(data)]="dataRecovered"
+                [options]="optionsRecovered" responsive="true" (onDataSelect)="selectDataRecovered($event)"></p-chart>
+        </div>
+
+        <div class="graphClass2">
+            <p-chart #linechart3 type="line" width="40vw" height="80vh" [(data)]="dataConfirmed"
+                [options]="optionsConfirmed" responsive="true" (onDataSelect)="selectDataConfirmed($event)"></p-chart>
+        </div>
+    </div>
+</mat-card>

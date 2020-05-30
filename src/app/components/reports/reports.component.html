@@ -1,1 +1,69 @@
-<p> Report Works! </p>
+<mat-card>
+    <div *ngIf="countriesList.countries.length == 0">
+        <div class="h-100">
+            <mat-card class="card-no-results">
+                <mat-card-header class="text-center">
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>La lista no posee ningún pais.</mat-card-title>
+                    <mat-card-subtitle>Para ver los reportes necesita agregar al menos 1 país a la lista.
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="text-center">
+                    <img class="alert-img" src="../../../assets/img/alert_256.png" />
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="countriesList.countries.length > 0">
+        <mat-card-title>Lista: {{countriesList.name}}</mat-card-title>
+        <mat-card-subtitle>Ingrese un offset a cada país para igualar la fecha de comienzo de la infección
+        </mat-card-subtitle>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> País </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="confirmed">
+                <th mat-header-cell *matHeaderCellDef> Casos confirmados </th>
+                <td mat-cell *matCellDef="let element"> {{element.confirmed}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="deaths">
+                <th mat-header-cell *matHeaderCellDef> Muertes </th>
+                <td mat-cell *matCellDef="let element"> {{element.deaths}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="recovered">
+                <th mat-header-cell *matHeaderCellDef> Recuperados </th>
+                <td mat-cell *matCellDef="let element"> {{element.recovered}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="offset">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Offset </th>
+                <td mat-cell *matCellDef="let element" class="text-center">
+                    <mat-form-field>
+                        <mat-label>Offset</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="element.offset">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <div class="buttonsDiv">
+            <button class="btn btn-primary buttons" (click)="tableView()" [disabled]="!offsetSelected()">Ver Tabla</button>
+            <button class="btn btn-primary buttons" (click)="graphView()" [disabled]="!offsetSelected()">Ver Gráfico</button>
+        </div>
+    </div>
+</mat-card>

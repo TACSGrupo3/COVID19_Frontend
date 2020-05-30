@@ -72,6 +72,10 @@ export class CountriesServices {
         return this.getRequest("countriesList",null,null);
     }
 
+    getCountriesListById(listId :number){
+        return this.getRequest("countriesList",listId,null);
+    }
+
     getCountriesListOfUser(user : UserModel){
         return this.getRequest("users", user.id+"/countriesList", null);
     }

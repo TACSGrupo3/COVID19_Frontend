@@ -13,6 +13,8 @@ import { UserDataComponent } from './components/user-data/user-data.component';
 import { CommonCountriesComponent } from './components/common-countries/common-countries.component';
 import { UserIntrestedComponent } from './components/user-intrested/user-intrested.component';
 import { AdminCountriesListComponent } from './components/admin-countries-list/admin-countries-list.component';
+import { TableReportComponent } from './components/reports/table-report/table-report.component';
+import { GraphReportComponent } from './components/reports/graph-report/graph-report.component';
 
 
 const routes: Routes = [
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'commonCountries', component: CommonCountriesComponent, canActivate: [AuthGuard]}, 
   { path: 'userIntrested', component: UserIntrestedComponent, canActivate: [AuthGuard]}, 
   { path: 'adminCountriesList', component: AdminCountriesListComponent, canActivate: [AuthGuard]}, 
+  { path: 'tableReport', component: TableReportComponent, canActivate: [AuthGuard]}, 
+  { path: 'graphReport', component: GraphReportComponent, canActivate: [AuthGuard]}, 
   { path: '**', redirectTo: 'login' }
 ];
 

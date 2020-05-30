@@ -33,6 +33,14 @@ import { UserDataComponent } from './components/user-data/user-data.component';
 import { CommonCountriesComponent } from './components/common-countries/common-countries.component';
 import { UserIntrestedComponent } from './components/user-intrested/user-intrested.component';
 import { AdminCountriesListComponent } from './components/admin-countries-list/admin-countries-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { ReportsComponent } from './components/reports/reports.component';
+import { DataReportService } from './services/dataReport.service';
+import { TableReportComponent } from './components/reports/table-report/table-report.component';
+import { GraphReportComponent } from './components/reports/graph-report/graph-report.component';
+import { DatePipe } from '@angular/common';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ToastModule, ChartModule, MessageService } from 'primeng';
 
 @NgModule({
   declarations: [
@@ -49,7 +57,10 @@ import { AdminCountriesListComponent } from './components/admin-countries-list/a
     UserDataComponent,
     CommonCountriesComponent,
     UserIntrestedComponent,
-    AdminCountriesListComponent
+    AdminCountriesListComponent,
+    ReportsComponent,
+    TableReportComponent,
+    GraphReportComponent
   ],
   imports: [
     AngularDualListBoxModule,
@@ -63,7 +74,10 @@ import { AdminCountriesListComponent } from './components/admin-countries-list/a
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     ChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    ToastModule,
+    ChartModule
   ],
   providers: [ {
     provide : HTTP_INTERCEPTORS,
@@ -74,7 +88,11 @@ import { AdminCountriesListComponent } from './components/admin-countries-list/a
     AuthService,
     CountriesServices,
     AdminService,
-    ReportsService],
+    ReportsService,
+    DataReportService,
+    DatePipe,
+    {provide: MAT_DATE_LOCALE, useValue: 'es-AR'},
+    MessageService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

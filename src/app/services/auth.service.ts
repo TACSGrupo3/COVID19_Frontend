@@ -27,7 +27,6 @@ export class AuthService {
             this.titleName = "a Covid19"
         else
             this.titleName = title;
-        console.log("TITULO APP", this.titleName);
     }
 
     getRequest(servicio: string, params: Array<any>): Observable<any> {

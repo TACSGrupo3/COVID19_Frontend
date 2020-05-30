@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { DataReportService } from 'src/app/services/dataReport.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class CountriesListComponent implements OnInit {
   countriesList: Array<CountriesListModel> = new Array<CountriesListModel>();
 
   constructor(private authService: AuthService, private countriesService: CountriesServices,
-    public dialog: MatDialog,private spinnerService : NgxSpinnerService, private router : Router) { }
+    public dialog: MatDialog,private spinnerService : NgxSpinnerService, private router : Router,
+    private dataReportService : DataReportService) { }
 
   ngOnInit(): void {
     this.spinnerService.show();
@@ -38,6 +40,11 @@ export class CountriesListComponent implements OnInit {
         }, 2000);
       }
     });
+  }
+
+  viewReport(list: any){
+    this.dataReportService.setList(list);
+    this.router.navigate(['/reports']);
   }
 
   modifyList(list: any){
