@@ -175,7 +175,7 @@ export class TestServicesComponent implements OnInit {
     countriesList.countries.push(brasil);
     countriesList.creationDate = new Date();
     listCountriesList.push(countriesList);
-    userWithCountries.countrieList = listCountriesList;
+    userWithCountries.countriesList = listCountriesList;
 
     return userWithCountries;
   }

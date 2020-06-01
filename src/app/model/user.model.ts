@@ -6,6 +6,7 @@ export class UserModel {
     firstName: String;
     lastName: String;
     password: String;
-    countrieList: Array<CountriesListModel>;
+    countriesList: Array<CountriesListModel>;
     userRole: String;
+    lastAccess: Date;
 }

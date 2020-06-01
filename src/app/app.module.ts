@@ -41,6 +41,7 @@ import { GraphReportComponent } from './components/reports/graph-report/graph-re
 import { DatePipe } from '@angular/common';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ToastModule, ChartModule, MessageService } from 'primeng';
+import { UserModalComponent } from './components/user-data/user-data-view/user-data-view.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ToastModule, ChartModule, MessageService } from 'primeng';
     AdminCountriesListComponent,
     ReportsComponent,
     TableReportComponent,
-    GraphReportComponent
+    GraphReportComponent,
+    UserModalComponent
   ],
   imports: [
     AngularDualListBoxModule,
