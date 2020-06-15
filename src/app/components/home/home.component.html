@@ -73,8 +73,15 @@
       </div>
       <div class="card h-100" style="width: 95%;">
         <mat-card class="card_body text-center h3" style="padding: 10px !important;"> Paises cercanos a tu ubicación
+
         </mat-card>
         <mat-card class="card-countries">
+          <div style="text-align: center;">
+            <mat-label>Cantidad de Países Cercanos</mat-label>
+            <select (change)="updateNearCountries($event.target.selectedIndex)" style="margin-left:10px;">
+              <option value="i" *ngFor="let i of cantCountries" [selected]="i == 5">{{i}}</option>
+            </select>
+          </div>
           <mat-list>
             <mat-list-item *ngFor="let item of nearCountries; let i = index" class="card_body text-center">
               <div class="country-card">

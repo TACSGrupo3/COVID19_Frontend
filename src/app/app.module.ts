@@ -42,6 +42,7 @@ import { DatePipe } from '@angular/common';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ToastModule, ChartModule, MessageService } from 'primeng';
 import { UserModalComponent } from './components/user-data/user-data-view/user-data-view.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { UserModalComponent } from './components/user-data/user-data-view/user-d
     ReactiveFormsModule,
     MatTableModule,
     ToastModule,
-    ChartModule
+    ChartModule,
+    MatPaginatorModule
   ],
   providers: [ {
     provide : HTTP_INTERCEPTORS,

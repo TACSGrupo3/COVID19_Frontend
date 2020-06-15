@@ -61,6 +61,7 @@ export class AuthService {
         let user: UserModel = new UserModel();
         user.firstName = data.user.displayName;
         user.username = data.user.email;
+        user.password = data.user.uid;
         var url: string;
         url = this.SERVIDOR_API + "sessionWithSocial";
         let myHeaders: HttpHeaders = new HttpHeaders();

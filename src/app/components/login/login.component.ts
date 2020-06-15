@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   public error: String = "";
   public hide = true;
   constructor(private authService: AuthService, private router: Router,
-    private _snackBar: MatSnackBar, public afAuth: AngularFireAuth, private spinnerService : NgxSpinnerService) { }
+    private _snackBar: MatSnackBar, public afAuth: AngularFireAuth, private spinnerService: NgxSpinnerService) { }
   durationInSeconds = 5;
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
             { duration: 3000 });
         } else {
           // Simple message.
-          let snackBarRef = this._snackBar.open(error.error, null,
+          let snackBarRef = this._snackBar.open(error.error.message, null,
             { duration: 3000 });
         }
         console.log(this.error);
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
               { duration: 3000 });
           } else {
             // Simple message.
-            let snackBarRef = this._snackBar.open(error.error, null,
+            let snackBarRef = this._snackBar.open(error.error.message, null,
               { duration: 3000 });
           }
           console.log(this.error);
@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
           let snackBarRef = this._snackBar.
             open("Ya existe una cuenta con el mismo email pero creada con otra aplicación.", null,
               { duration: 3000 });
+
         } else {
           let snackBarRef = this._snackBar.
             open(error.message, null,
@@ -184,6 +185,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  
-  
+
+
 }

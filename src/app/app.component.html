@@ -14,7 +14,8 @@
       <mat-nav-list>
         <h3 mat-subheader *ngIf="authService.isAdmin">Usuario</h3>
         <a mat-list-item routerLink="/home" (click)="snav.toggle()">Home</a>
-        <a mat-list-item routerLink="/countriesList" (click)="snav.toggle()">Listas de Paises</a>
+        <a mat-list-item routerLink="/newCountriesList" (click)="snav.toggle()">Nueva Lista de Paises</a>
+        <a mat-list-item routerLink="/countriesList" (click)="snav.toggle()">Ver Listas de Paises</a>
         <mat-divider *ngIf="authService.isAdmin"></mat-divider>
         <h3 mat-subheader *ngIf="authService.isAdmin">Administrador</h3>
         <a mat-list-item routerLink="/userData" (click)="snav.toggle()" *ngIf="authService.isAdmin">Datos de Usuarios</a>

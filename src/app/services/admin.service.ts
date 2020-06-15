@@ -63,6 +63,14 @@ export class AdminService {
         return this.getRequest("admin/users",null,null);
     }
 
+    getAllUserPaginated(page : number){
+        return this.getRequest("admin/users",null,["page="+page]);
+    }
+
+    getAllUserPaginatedFiltered(page : number, filter: string){
+        return this.getRequest("admin/users",null,["page="+page,"filter="+filter]);
+    }
+
     getUser(userId : number){
         return this.getRequest("admin/users",userId,null);
     }

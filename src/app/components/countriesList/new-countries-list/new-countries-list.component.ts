@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/model/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 declare var $: any;
 
@@ -40,7 +41,7 @@ export class NewCountriesListComponent implements OnInit {
   mode: number = 0;
 
   constructor(private authService: AuthService, private countriesService: CountriesServices,
-    public dialog: MatDialog, private router: Router) {
+    public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
     if (this.router.getCurrentNavigation().extras.state != null &&
       this.router.getCurrentNavigation().extras.state.data != null)
       this.listToModify = this.router.getCurrentNavigation().extras.state.data.list;
@@ -138,7 +139,8 @@ export class NewCountriesListComponent implements OnInit {
           this.isSaved = true;
           this.showModal();
         }, error => {
-          this.error = error.message;
+          let snackBarRef = this._snackBar.open(error.error.message, null,
+            { duration: 5000 });
         });
     } else {
       this.countriesService.modifyCountriesList(this.countriesList)
@@ -146,7 +148,8 @@ export class NewCountriesListComponent implements OnInit {
           this.isSaved = true;
           this.showModal();
         }, error => {
-          this.error = error.message;
+          let snackBarRef = this._snackBar.open(error.error.message, null,
+            { duration: 5000 });
         });
     }
   }
