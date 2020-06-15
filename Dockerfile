@@ -1,25 +1,14 @@
 # base image
-FROM node:12.16.2
-
-## # install chrome for protractor tests
-## RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-## RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-## RUN apt-get update && apt-get install -yq google-chrome-stable
-
+FROM node:12.18.0-alpine As build
 # set working directory
-WORKDIR /app
-
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
+WORKDIR /usr/src/app
 # install and cache app dependencies
-COPY package.json /app/package.json
+COPY package.json package-lock.json ./
 RUN npm install
-RUN npm install -g @angular/cli@9.1.1
-## RUN npm run build
+RUN npm install -g @angular/cli@9.1.8
+COPY . .
+RUN npm run build
 
-# add app
-COPY . /app
-
-# start app
-CMD ng serve --proxy-config proxy.conf.json --host 0.0.0.0
+FROM nginx:1.17.1-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build  /usr/src/app/dist/covid19 /usr/share/nginx/html
