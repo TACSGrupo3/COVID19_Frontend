@@ -6,6 +6,8 @@ import {map, startWith} from 'rxjs/operators';
 import { AdminService } from 'src/app/services/admin.service';
 import { CountriesServices } from 'src/app/services/countries.service';
 import { UserModel } from 'src/app/model/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { UserModalComponent } from '../user-data/user-data-view/user-data-view.component';
 
 @Component({
   selector: 'app-user-intrested',
@@ -17,11 +19,12 @@ export class UserIntrestedComponent implements OnInit {
   countriesList: Array<CountryModel>;
   filteredOptions: Observable<Array<CountryModel>>;
   countrySelected: CountryModel;
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'username'];
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'username', 'view'];
 
   usersIntrested: Array<UserModel>;
 
-  constructor(private adminService: AdminService, private countriesService : CountriesServices) { }
+  constructor(private adminService: AdminService, private countriesService : CountriesServices, 
+    public dialog: MatDialog) { }
   
   ngOnInit(): void {
 
@@ -53,7 +56,7 @@ export class UserIntrestedComponent implements OnInit {
   }
 
   selectCountry(){
-    this.adminService.getUserIntrested(this.countrySelected.id).subscribe(data =>{
+    this.adminService.getUserIntrested(this.countrySelected.idCountry).subscribe(data =>{
       this.usersIntrested = data;
     });
     
@@ -62,5 +65,16 @@ export class UserIntrestedComponent implements OnInit {
   clearInput(){
    this.countrySelected = new CountryModel(); 
    this.usersIntrested = null;
+  }
+
+  viewUserData(element) {
+
+    this.adminService.getUser(element.id).subscribe(data => {
+      const dialogRef = this.dialog.open(UserModalComponent, {
+        width: '500px',
+        height: '500px',
+        data: { user: data }
+      });
+    });
   }
 }

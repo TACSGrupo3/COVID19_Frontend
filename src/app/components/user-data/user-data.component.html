@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-title>Lista de Usuarios</mat-card-title>
-    <mat-card-subtitle>Filtra para ver los datos de cualquier usuario</mat-card-subtitle>
+    <mat-card-subtitle>Cantidad total de usuarios registrados: {{totalElements}}</mat-card-subtitle>
     <mat-form-field>
         <mat-label>Buscar Usuario</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Filtra por: Nombre/Apellido/Username">

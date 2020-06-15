@@ -70,14 +70,15 @@ export class GraphReportComponent implements OnInit {
     if (list != null && list.countries != null && list.countries.length > 0) {
       let params = [];
       list.countries.forEach(country => {
-        if (country.offset != null && country.id != null) {
-          params.push(country.id);
+        if (country.offset != null && country.idCountry != null) {
+          params.push(country.idCountry);
           params.push(this.getFormattedDate(country.offset))
         }
       });
       this.reportService.getReport(params).subscribe(data => {
         this.listOfCountries = data;
 
+        console.log("LISTA: ", this.listOfCountries);
         if (this.listOfCountries != null)
           this.loadGraph();
       });

@@ -79,6 +79,10 @@ export class AdminService {
         return this.getRequest("admin/countriesList",null,null);
     }
 
+    getCountriesListsFilterByName(name: string){
+        return this.getRequest("admin/countriesList",null,["name="+name]);
+    }
+
     getCountriesListsFiltered(cantDays : number){
         return this.getRequest("admin/countriesList",null,["filterLast="+cantDays]);
     }

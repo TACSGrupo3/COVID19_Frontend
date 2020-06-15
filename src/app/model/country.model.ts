@@ -3,7 +3,7 @@ import { LocationModel } from './location.model';
 import { DataReportModel } from './dataReport.model';
 
 export class CountryModel{
-    id : number;
+    idCountry : number;
     name: String;
     countryCode: CountryCodeModel;
     location: LocationModel;

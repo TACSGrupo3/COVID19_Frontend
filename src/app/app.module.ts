@@ -16,7 +16,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './components/profile/profile.component';
-import { TestServicesComponent } from './components/test-services/test-services.component';
 import { AdminService } from './services/admin.service';
 import { ReportsService } from './services/reports.service';
 import { NgxSpinnerModule} from 'ngx-spinner';
@@ -52,7 +51,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    TestServicesComponent,
     NewCountriesListComponent,
     DialogComponent,
     ConfirmModalComponent,

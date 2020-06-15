@@ -94,7 +94,7 @@ export class CommonCountriesComponent implements OnInit {
     if (this.listA != null && this.listB != null) {
 
       this.listIntersected = this.listA.countries.filter(a =>
-        this.listB.countries.some(b => a.id === b.id));;
+        this.listB.countries.some(b => a.idCountry === b.idCountry));;
     }
   }
   displayFn(countriesList: CountriesListModel): string {

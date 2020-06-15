@@ -24,9 +24,9 @@
                                             <input matInput [type]="hide ? 'password' : 'text'" id="password"
                                                 name="password" class="form-control" placeholder="Contraseña" required
                                                 [(ngModel)]="user.password">
-                                            <button mat-icon-button matSuffix (click)="hide = !hide"
-                                                [attr.aria-label]="'Ocultar Contraseña'" [attr.aria-pressed]="hide">
-                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            <button mat-icon-button matSuffix 
+                                                [attr.aria-label]="'Ocultar Contraseña'" >
+                                                <mat-icon (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                             </button>
                                         </mat-form-field>
                                     </div>

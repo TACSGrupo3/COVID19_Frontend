@@ -9,6 +9,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/model/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var $: any;
 
@@ -41,13 +42,16 @@ export class NewCountriesListComponent implements OnInit {
   mode: number = 0;
 
   constructor(private authService: AuthService, private countriesService: CountriesServices,
-    public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
+    public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar,
+    private spinnerService: NgxSpinnerService) {
     if (this.router.getCurrentNavigation().extras.state != null &&
       this.router.getCurrentNavigation().extras.state.data != null)
       this.listToModify = this.router.getCurrentNavigation().extras.state.data.list;
   }
 
   ngOnInit(): void {
+    this.spinnerService.show();
+    this.isValid = false;
     this.countriesList = new CountriesListModel();
     this.formatDualList = {
       add: 'Agregar', remove: 'Quitar', all: 'Todos', none: 'Ninguno',
@@ -72,7 +76,6 @@ export class NewCountriesListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
     $("input[name=filterSource]").attr("placeholder", "Ingresá el país a buscar...");
     $("input[name=filterDestination]").attr("placeholder", "Ingresá el país a buscar...");
   }
@@ -81,19 +84,9 @@ export class NewCountriesListComponent implements OnInit {
     this.countriesService.findAll().subscribe(response => {
       if (response != null) {
         this.countries = response;
+        this.spinnerService.hide();
       }
     });
-  }
-
-  addCountry() {
-    let countryToAdd = this.formGroup.get('countryToAdd').value;
-    this.countriesList.countries.push(countryToAdd);
-
-    this.countries = this.countries.filter(country => {
-      return country.id != countryToAdd.id;
-    });
-
-    this.formGroup.get('countryToAdd').setValue('');
   }
 
   getDisplayCountryName() {
