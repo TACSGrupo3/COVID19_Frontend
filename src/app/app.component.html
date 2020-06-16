@@ -22,7 +22,8 @@
         <a mat-list-item routerLink="/commonCountries" (click)="snav.toggle()" *ngIf="authService.isAdmin">Paises en Común</a>
         <a mat-list-item routerLink="/userIntrested" (click)="snav.toggle()" *ngIf="authService.isAdmin">Usuarios Interesados</a>
         <a mat-list-item routerLink="/adminCountriesList" (click)="snav.toggle()" *ngIf="authService.isAdmin">Datos de Listas</a>
-        
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/profile" (click)="snav.toggle()">Datos Personales</a>
         <div class="logout-button">
           <button class="btn btn-md btn-secondary w-75" (click)="snav.toggle();logout()">Logout</button>
         </div>

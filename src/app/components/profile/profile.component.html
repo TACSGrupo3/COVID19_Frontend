@@ -1,1 +1,28 @@
-<p>profile works!</p>
+<mat-card>
+    <mat-card-title>
+    Datos Personales
+    </mat-card-title>
+
+    <form class="example-form" #formLogin="ngForm" (ngSubmit)="save()">
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" id="firstName" name="firstName" [(ngModel)]="user.firstName">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Apellido</mat-label>
+            <input matInput type="text" id="lastName" name="lastName" [(ngModel)]="user.lastName">
+          </mat-form-field>
+         
+          <mat-form-field class="example-full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput placeholder="Cambiar Contraseña" type="password" 
+                id="password" name="password" [(ngModel)]="user.password">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Telegram Id</mat-label>
+            <input matInput  type="text" id="telegram_chat_id" name="telegram_chat_id" [(ngModel)]="user.telegram_chat_id">
+          </mat-form-field>
+      
+          <button class="btn btn-primary" type="submit">Guardar</button>
+      </form>
+</mat-card>

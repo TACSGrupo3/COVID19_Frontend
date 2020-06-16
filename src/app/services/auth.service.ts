@@ -150,5 +150,14 @@ export class AuthService {
         else
             this.titleName = title;
       }
+
+      updateUser(user: UserModel) : Observable<any>{
+        var url: string;
+        url = this.SERVIDOR_API + "users" + "/" + user.id;
+        let myHeaders: HttpHeaders = new HttpHeaders();
+        let options = { headers : myHeaders };
+        
+        return this.http.patch(url, user,options);
+      }
 }
 

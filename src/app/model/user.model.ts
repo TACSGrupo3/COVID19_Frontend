@@ -9,4 +9,5 @@ export class UserModel {
     countriesList: Array<CountriesListModel>;
     userRole: String;
     lastAccess: Date;
+    telegram_chat_id: number;
 }
