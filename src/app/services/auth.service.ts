@@ -71,6 +71,20 @@ export class AuthService {
         return this.http.post(url, user, options);
     }
 
+    loginUserWithGoogle(data: any): Observable<any> {
+        let user: UserModel = new UserModel();
+        user.firstName = data.additionalUserInfo.profile.given_name;
+        user.lastName = data.additionalUserInfo.profile.family_name;
+        user.username = data.user.email;
+        user.password = data.user.uid;
+        var url: string;
+        url = this.SERVIDOR_API + "sessionWithSocial";
+        let myHeaders: HttpHeaders = new HttpHeaders();
+        let options = { headers: myHeaders };
+
+        return this.http.post(url, user, options);
+    }
+
     logoutUser() {
         //Enviar servicio logout
         localStorage.removeItem("currentUser");

@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit {
 
   onGoogleLogin() {
     this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()).then(credentials => {
-      this.authService.loginUserWithSocial(credentials).subscribe(data => {
+      this.authService.loginUserWithGoogle(credentials).subscribe(data => {
         this.router.navigate(['home']);
         this.authService.loggedWithGoogle = true;
         this.authService.setAdminFlag(null);
