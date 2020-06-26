@@ -59,7 +59,8 @@ export class AuthService {
 
     loginUserWithSocial(data: any): Observable<any> {
         let user: UserModel = new UserModel();
-        user.firstName = data.user.displayName;
+        user.firstName = data.additionalUserInfo.profile.first_name;
+        user.lastName = data.additionalUserInfo.profile.last_name;
         user.username = data.user.email;
         user.password = data.user.uid;
         var url: string;
