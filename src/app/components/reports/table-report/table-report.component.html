@@ -11,9 +11,12 @@
                     <mat-list-item *ngFor="let data of countries.dataReport">
 
                         <div mat-subheader class="w-100">{{data.date  | date:'dd-MM-yyyy'}}</div>
-                        <div mat-line style="width: 200px !important;">Confirmados: {{data.confirmed}}</div>
-                        <div mat-line>Muertos: {{data.deaths}}</div>
-                        <div mat-line>Recuperados: {{data.recovered}}</div>
+                        <div>
+                            <div mat-line style="width: 200px !important;">Confirmados: {{data.confirmed}}</div>
+                            <div mat-line>Muertos: {{data.deaths}}</div>
+                            <div mat-line>Recuperados: {{data.recovered}}</div>
+
+                        </div>
                         <mat-divider></mat-divider>
 
 
