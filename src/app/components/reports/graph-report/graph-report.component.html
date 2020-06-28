@@ -1,8 +1,8 @@
 <mat-card *ngIf="true">
-    <div class="buttonsDiv">
+    <!-- <div class="buttonsDiv">
         <button class="btn btn-secondary buttons" (click)="back()" >Volver</button>
         <button class="btn btn-primary buttons" (click)="tableView()">Ver Tabla</button>
-    </div>
+    </div> -->
     <div class="divGraph">
         <p-chart #linechart3 type="line" [(data)]="dataConfirmed" [options]="optionsConfirmed" responsive="true"
             (onDataSelect)="selectDataConfirmed($event)"></p-chart>

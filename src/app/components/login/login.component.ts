@@ -54,14 +54,13 @@ export class LoginComponent implements OnInit {
           let snackBarRef = this._snackBar.open(error.error.message, null,
             { duration: 3000 });
         }
-        console.log(this.error);
       });
   }
 
   onFacebookLogin() {
     this.afAuth.signInWithPopup(new auth.FacebookAuthProvider())
       .then(credential => {
-        this.authService.loginUserWithSocial(credential).subscribe(data => {
+        this.authService.loginUserWithFacebook(credential).subscribe(data => {
           this.router.navigate(['home']);
           this.authService.loggedWithGoogle = true;
           this.authService.setAdminFlag(null);
@@ -82,7 +81,6 @@ export class LoginComponent implements OnInit {
             let snackBarRef = this._snackBar.open(error.error.message, null,
               { duration: 3000 });
           }
-          console.log(this.error);
         });
       }, error => {
         if (error.code == "auth/account-exists-with-different-credential") {
@@ -95,14 +93,13 @@ export class LoginComponent implements OnInit {
             open(error.message, null,
               { duration: 3000 });
         }
-        console.log("ERROR: ", error);
       });
   }
 
-  onLinkedinGithub() {
+  onGithubLogin() {
     this.afAuth.signInWithPopup(new auth.GithubAuthProvider())
       .then(credential => {
-        this.authService.loginUserWithSocial(credential).subscribe(data => {
+        this.authService.loginUserWithGitHub(credential).subscribe(data => {
           this.router.navigate(['home']);
           this.authService.loggedWithGoogle = true;
           this.authService.setAdminFlag(null);
@@ -126,7 +123,6 @@ export class LoginComponent implements OnInit {
             let snackBarRef = this._snackBar.open(error.error, null,
               { duration: 3000 });
           }
-          console.log(this.error);
         });
       }, error => {
         if (error.code == "auth/account-exists-with-different-credential") {
@@ -138,7 +134,6 @@ export class LoginComponent implements OnInit {
             open(error.message, null,
               { duration: 3000 });
         }
-        console.log("ERROR: ", error);
       });
   }
 
@@ -168,7 +163,6 @@ export class LoginComponent implements OnInit {
           let snackBarRef = this._snackBar.open(error.error, null,
             { duration: 3000 });
         }
-        console.log(this.error);
       });
     }, error => {
       if (error.code == "auth/account-exists-with-different-credential") {
@@ -180,7 +174,6 @@ export class LoginComponent implements OnInit {
           open(error.message, null,
             { duration: 3000 });
       }
-      console.log("ERROR: ", error);
     });
 
   }

@@ -22,7 +22,6 @@ export class UserModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.data.user;
-    console.log(this.user);
   }
 
   closeModal(){

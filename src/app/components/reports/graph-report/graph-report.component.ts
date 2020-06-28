@@ -78,7 +78,6 @@ export class GraphReportComponent implements OnInit {
       this.reportService.getReport(params).subscribe(data => {
         this.listOfCountries = data;
 
-        console.log("LISTA: ", this.listOfCountries);
         if (this.listOfCountries != null)
           this.loadGraph();
       });

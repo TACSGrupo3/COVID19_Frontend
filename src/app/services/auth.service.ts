@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserModel } from '../model/user.model';
 import { isNullOrUndefined } from 'util';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 export class AuthService {
@@ -20,16 +21,7 @@ export class AuthService {
     public titleName: String = "a Covid19";
 
     public loggedWithGoogle: boolean = false;
-    constructor(private http: HttpClient, public afAuth: AngularFireAuth) { }
-
-    getRequest(servicio: string, params: Array<any>): Observable<any> {
-        var url: string;
-        let paramsString = this.paramsString(params);
-        url = this.SERVIDOR_API + servicio + "/" + paramsString;
-
-        return this.http.get(url);
-
-    }
+    constructor(private http: HttpClient, public afAuth: AngularFireAuth, public datepipe: DatePipe) { }
 
     postRequest(servicio: string, body: any): Observable<any> {
         var url: string;
@@ -57,7 +49,7 @@ export class AuthService {
         return this.http.post(url, user, options);
     }
 
-    loginUserWithSocial(data: any): Observable<any> {
+    loginUserWithFacebook(data: any): Observable<any> {
         let user: UserModel = new UserModel();
         user.firstName = data.additionalUserInfo.profile.first_name;
         user.lastName = data.additionalUserInfo.profile.last_name;
@@ -70,6 +62,21 @@ export class AuthService {
 
         return this.http.post(url, user, options);
     }
+
+    loginUserWithGitHub(data: any): Observable<any> {
+        let user: UserModel = new UserModel();
+        user.firstName = data.additionalUserInfo.profile.name;
+        user.lastName = " ";
+        user.username = data.user.email;
+        user.password = data.user.uid;
+        var url: string;
+        url = this.SERVIDOR_API + "sessionWithSocial";
+        let myHeaders: HttpHeaders = new HttpHeaders();
+        let options = { headers: myHeaders };
+
+        return this.http.post(url, user, options);
+    }
+
 
     loginUserWithGoogle(data: any): Observable<any> {
         let user: UserModel = new UserModel();
@@ -173,6 +180,16 @@ export class AuthService {
         let options = { headers : myHeaders };
         
         return this.http.patch(url, user,options);
+      }
+
+      getLastAccess(){
+          let user = this.getCurrentUser();
+
+          if(user != null){
+            return this.datepipe.transform(user.lastAccess, 'dd/MM/yyyy, h:mm:ss a');
+          }else{
+            return "";
+          }
       }
 }
 

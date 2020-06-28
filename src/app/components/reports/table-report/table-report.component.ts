@@ -19,7 +19,7 @@ export class TableReportComponent implements OnInit {
 
   ngOnInit(): void {
     let list = this.dataReport.getList();
-    if (list != null && list.countries != null && list.countries.length > 0) {
+    if (list != null && list.countries != null && list.countries.length > 0 && this.dataReport.showReport) {
       let params = [];
       list.countries.forEach(country => {
         if (country.offset != null && country.idCountry != null) {

@@ -7,6 +7,8 @@ import { isNullOrUndefined } from 'util';
 })
 export class DataReportService {
 
+    showReport : boolean;
+    
     constructor() { }
 
     setList(list: CountriesListModel) {

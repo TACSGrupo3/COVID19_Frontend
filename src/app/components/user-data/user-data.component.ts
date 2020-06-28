@@ -44,7 +44,6 @@ export class UserDataComponent implements OnInit {
   public getServerData(event?: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.adminService.getAllUserPaginated(this.pageIndex).subscribe(data => {
-      console.log(data);
       this.dataSource = new MatTableDataSource(data.content);
     })
 

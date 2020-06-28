@@ -93,6 +93,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReportsService,
     DataReportService,
     DatePipe,
+    TableReportComponent,
     {provide: MAT_DATE_LOCALE, useValue: 'es-AR'},
     MessageService ],
   bootstrap: [AppComponent]

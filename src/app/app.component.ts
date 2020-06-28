@@ -43,8 +43,4 @@ export class AppComponent implements OnDestroy,OnInit {
       this.spinnerService.hide();
     }, 3000);
   }
-
-  log(data : any){
-    console.log(data);
-  }
 }

@@ -39,7 +39,7 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   newList() {
-    this.router.navigate(['/newCountriesList']);
+    this.data.newList = true;
     this.dialogRef.close();
   }
 

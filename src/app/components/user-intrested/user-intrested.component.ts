@@ -42,12 +42,13 @@ export class UserIntrestedComponent implements OnInit {
   }
 
   private _filter(value: any): Array<CountryModel> {
-    let filterValue;
-    if(value.name == null)
-      filterValue = value.toLowerCase();
-    else 
-      filterValue = value.name.toLowerCase();
-
+    let filterValue = "";
+    if(value != null ){
+      if(value.name == null)
+        filterValue = value.toLowerCase();
+      else 
+        filterValue = value.name.toLowerCase();
+      }
     return this.countriesList.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
@@ -65,6 +66,7 @@ export class UserIntrestedComponent implements OnInit {
   clearInput(){
    this.countrySelected = new CountryModel(); 
    this.usersIntrested = null;
+   this.myControl.reset();
   }
 
   viewUserData(element) {

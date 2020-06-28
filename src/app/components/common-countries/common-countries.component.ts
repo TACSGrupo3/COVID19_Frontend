@@ -67,13 +67,9 @@ export class CommonCountriesComponent implements OnInit {
 
   selectListA(list) {
     if (list != null) {
-      console.log("OPTION: ", this.listAOption);
       this.listA = list;
       this.calculateIntersection();
-    } else {
-      console.log(list);
     }
-
   }
 
   changeInput() {

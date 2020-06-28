@@ -19,6 +19,12 @@
         <mat-card-title>Lista: {{countriesList.name}}</mat-card-title>
         <mat-card-subtitle>Ingrese un offset a cada país para igualar la fecha de comienzo de la infección
         </mat-card-subtitle>
+        <div class="buttonsDiv">
+            <button *ngIf="view == 'table'" class="btn btn-primary buttons" (click)="tableView()" [disabled]="!offsetSelected()">Actualizar Tabla</button>
+            <button *ngIf="view != 'table'" class="btn btn-primary buttons" (click)="tableView()" [disabled]="!offsetSelected()">Ver Tabla</button>
+            <button *ngIf="view == 'graph'" class="btn btn-primary buttons" (click)="graphView()" [disabled]="!offsetSelected()">Actualizar Gráfico</button>
+            <button *ngIf="view != 'graph'" class="btn btn-primary buttons" (click)="graphView()" [disabled]="!offsetSelected()">Ver Gráfico</button>
+        </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
 
             <!-- Position Column -->
@@ -60,10 +66,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
-        <div class="buttonsDiv">
-            <button class="btn btn-primary buttons" (click)="tableView()" [disabled]="!offsetSelected()">Ver Tabla</button>
-            <button class="btn btn-primary buttons" (click)="graphView()" [disabled]="!offsetSelected()">Ver Gráfico</button>
-        </div>
     </div>
 </mat-card>
+<app-table-report ad-table *ngIf="view == 'table'"></app-table-report>
+<app-graph-report ad-graph *ngIf="view == 'graph'"></app-graph-report>

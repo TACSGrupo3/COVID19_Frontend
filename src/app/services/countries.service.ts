@@ -16,9 +16,8 @@ export class CountriesServices {
         url = this.SERVIDOR_API + servicio + "/" + paramsString;
 
         return this.http.get(url);
-
     }
-    
+
     postRequest(servicio: string, body: any, idToAdd : any) : Observable<any> {
         var url: string;
         url = this.SERVIDOR_API + servicio + "/" + idToAdd;

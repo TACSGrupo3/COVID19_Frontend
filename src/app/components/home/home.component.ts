@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
     private router: Router,public dialog: MatDialog, private dataReport : DataReportService) { }
 
   ngOnInit(): void {
+    this.open = true;
     let cantidadPaises = 5;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(data => {
@@ -38,7 +39,6 @@ export class HomeComponent implements OnInit {
           this.enableLocation = true;
           this.nearCountries = data;
         }, error => {
-          console.log(error);
           this.enableLocation = false;
         });
       });
@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
       this.enableLocation = true;
       this.nearCountries = data;
     }, error => {
-      console.log(error);
       this.enableLocation = false;
     });
   }

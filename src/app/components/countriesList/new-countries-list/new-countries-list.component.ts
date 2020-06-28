@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CountriesListModel } from 'src/app/model/countriesList.model';
 import { CountryModel } from 'src/app/model/country.model';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/model/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatStepper } from '@angular/material/stepper';
 
 declare var $: any;
 
@@ -17,6 +18,7 @@ export interface ConfirmDialog {
   message: any;
   type: string;
 
+  newList: boolean;
   isDeleted: boolean;
 }
 
@@ -26,7 +28,7 @@ export interface ConfirmDialog {
   styleUrls: ['./new-countries-list.component.scss']
 })
 export class NewCountriesListComponent implements OnInit {
-
+  @ViewChild('stepper') stepper: MatStepper;
   formGroup: FormGroup;
   countries: Array<CountryModel>;
   countryToAdd: any;
@@ -51,6 +53,7 @@ export class NewCountriesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinnerService.show();
+   
     this.isValid = false;
     this.countriesList = new CountriesListModel();
     this.formatDualList = {
@@ -110,8 +113,6 @@ export class NewCountriesListComponent implements OnInit {
         return 0;
       }
     });
-
-    console.log(this.countries);
   }
 
   isValidName() {
@@ -153,6 +154,14 @@ export class NewCountriesListComponent implements OnInit {
         width: '500px',
         height: '500px',
         data: { message: "Se ha creado la lista con éxito!", type: "confirm" }
+      });
+
+      dialogRef.afterClosed().subscribe(data =>{
+        let newList = dialogRef.componentInstance.data.newList;
+        if(newList){
+          this.ngOnInit();
+          this.stepper.selectedIndex = 0;
+        }
       });
     } else {
       const dialogRef = this.dialog.open(ConfirmModalComponent, {

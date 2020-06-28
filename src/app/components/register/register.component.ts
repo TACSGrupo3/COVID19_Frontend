@@ -27,10 +27,7 @@ export class RegisterComponent implements OnInit {
         this.authService.setToken(userLoged.token);
         this.router.navigate(['home']);
       });
-    }),
-    error => {
-      console.log(error);
-    };
+    });
   }
 
 }
