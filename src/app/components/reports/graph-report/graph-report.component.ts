@@ -92,7 +92,7 @@ export class GraphReportComponent implements OnInit {
     this.listOfCountries.forEach(country => {
       let datesOfCountry = [];
       country.dataReport.forEach(data => {
-        if (data.deaths != 0) datesOfCountry.push(this.getFormattedDate(new Date(data.date)));
+        if (data.deaths != 0) datesOfCountry.push(this.getFormattedDate(data.date));
       });
       arrayDates = arrayDates.concat(datesOfCountry);
     });
@@ -136,7 +136,7 @@ export class GraphReportComponent implements OnInit {
 
       let lastValue = 0;
       this.listOfCountries[i].dataReport.forEach(dataReport => {
-        const indexDate = (element) => this.getFormattedDate(new Date(dataReport.date)) === element;
+        const indexDate = (element) => this.getFormattedDate(dataReport.date) === element;
 
         let indexLabelDate = arrayDates.findIndex(indexDate);
 
