@@ -12,7 +12,7 @@ export class DataReportService {
     constructor() { }
 
     setList(list: CountriesListModel) {
-        if (list) {
+        if (list != null) {
             let list_string = JSON.stringify(list);
             localStorage.setItem("reportList", list_string);
         }

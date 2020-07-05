@@ -45,8 +45,8 @@ export class AdminService {
         return this.http.patch(url, body,options);
     }
     paramsString(params: any, queryParams : Array<any>) {
-        if(!params) params = "";
-        if(queryParams){
+        if(params == null) params = "";
+        if(queryParams != null){
             for(let i = 0; i < queryParams.length; i++){
                 if(i == 0){
                     params = params.toString().concat("?");

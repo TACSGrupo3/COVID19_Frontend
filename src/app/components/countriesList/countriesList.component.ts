@@ -32,7 +32,7 @@ export class CountriesListComponent implements OnInit {
 
   getCountriesListsOfUser() {
     this.countriesService.getCountriesListOfUser(this.authService.getCurrentUser()).subscribe(response => {
-      if (response) {
+      if (response != null) {
         this.countriesList = response;
         setTimeout(() =>{
           this.isLoading = false;

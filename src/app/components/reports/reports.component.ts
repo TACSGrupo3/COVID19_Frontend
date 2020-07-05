@@ -27,7 +27,7 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void {
     this.dataReport.showReport = false;
     let list = this.dataReport.getList();
-    if(list){
+    if(list != null){
       this.countriesList = list;
       this.dataSource = new MatTableDataSource(this.countriesList.countries);
     }

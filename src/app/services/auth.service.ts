@@ -108,7 +108,7 @@ export class AuthService {
   }
 
   setUser(user: UserModel): void {
-    if (user) {
+    if (user != null) {
       let user_string = JSON.stringify(user);
       localStorage.setItem("currentUser", user_string);
     } else {
@@ -154,17 +154,18 @@ export class AuthService {
 
   getUserId() {
     let user: UserModel = this.getCurrentUser();
-    if (user) return user.id;
+    if (user != null) return user.id;
   }
 
   isTokenAvaible() {
-    if (!this?.getToken() && !this?.getCurrentUser())
+    if (this.getToken() != null && this.getCurrentUser() != null)
       return true;
     return false;
   }
 
   setAdminFlag(data: any) {
-    if (data && !data?.username && data.userRole == "ADMIN") {
+    if (data != null && data.username != null &&
+      data.userRole == "ADMIN") {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -172,7 +173,7 @@ export class AuthService {
   }
 
   setTitle(title: any) {
-    if (!title)
+    if (title == null)
       this.titleName = "a Covid19"
     else
       this.titleName = title;
@@ -190,7 +191,7 @@ export class AuthService {
   getLastAccess() {
     let user = this.getCurrentUser();
 
-    if (user) {
+    if (user != null) {
       return this.datepipe.transform(user.lastAccess, 'dd/MM/yyyy, h:mm:ss a');
     } else {
       return "";
