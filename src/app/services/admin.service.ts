@@ -21,8 +21,8 @@ export class AdminService {
     getRequestWithPost(servicio: string, params: any, queryParams: Array<any>, postRequest: string) : Observable<any> {
         var url: string;
         let paramsString = this.paramsString(params,queryParams);
-        url = this.SERVIDOR_API + servicio + "/" + paramsString + "/" + postRequest;
-
+        url = `${this.SERVIDOR_API}${servicio}/${paramsString}/${postRequest}`;
+        
         return this.http.get(url);
        
     }
@@ -45,8 +45,8 @@ export class AdminService {
         return this.http.patch(url, body,options);
     }
     paramsString(params: any, queryParams : Array<any>) {
-        if(params == null) params = "";
-        if(queryParams != null){
+        if(!params) params = "";
+        if(queryParams){
             for(let i = 0; i < queryParams.length; i++){
                 if(i == 0){
                     params = params.toString().concat("?");
@@ -64,11 +64,11 @@ export class AdminService {
     }
 
     getAllUserPaginated(page : number){
-        return this.getRequest("admin/users",null,["page="+page]);
+        return this.getRequest("admin/users",null,[`page=${page}`]);
     }
 
     getAllUserPaginatedFiltered(page : number, filter: string){
-        return this.getRequest("admin/users",null,["page="+page,"filter="+filter]);
+        return this.getRequest("admin/users",null,[`page=${page}`,`filter=${filter}`]);
     }
 
     getUser(userId : number){
@@ -80,11 +80,11 @@ export class AdminService {
     }
 
     getCountriesListsFilterByName(name: string){
-        return this.getRequest("admin/countriesList",null,["name="+name]);
+        return this.getRequest("admin/countriesList",null,[`name=${name}`]);
     }
 
     getCountriesListsFiltered(cantDays : number){
-        return this.getRequest("admin/countriesList",null,["filterLast="+cantDays]);
+        return this.getRequest("admin/countriesList",null,[`filterLast=${cantDays}`]);
     }
 
     getUserIntrested(idCountry : number){

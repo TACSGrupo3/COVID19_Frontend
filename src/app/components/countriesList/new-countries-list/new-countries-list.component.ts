@@ -46,8 +46,7 @@ export class NewCountriesListComponent implements OnInit {
   constructor(private authService: AuthService, private countriesService: CountriesServices,
     public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar,
     private spinnerService: NgxSpinnerService) {
-    if (this.router.getCurrentNavigation().extras.state != null &&
-      this.router.getCurrentNavigation().extras.state.data != null)
+    if (this.router.getCurrentNavigation()?.extras?.state?.data != null)
       this.listToModify = this.router.getCurrentNavigation().extras.state.data.list;
   }
 
@@ -85,7 +84,7 @@ export class NewCountriesListComponent implements OnInit {
 
   findAll() {
     this.countriesService.findAll().subscribe(response => {
-      if (response != null) {
+      if (response) {
         this.countries = response;
         this.spinnerService.hide();
       }

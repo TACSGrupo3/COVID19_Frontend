@@ -12,33 +12,15 @@ export class ReportsService {
     private getRequest(servicio: string, params: any, queryParams: Array<any>): Observable<any> {
         var url: string;
         let paramsString = this.paramsString(params, queryParams);
-        url = this.SERVIDOR_API + servicio + "/" + paramsString;
+        url = `${this.SERVIDOR_API}${servicio}/${paramsString}`;
 
         return this.http.get(url);
 
     }
 
-    private postRequest(servicio: string, body: any): Observable<any> {
-        var url: string;
-        url = this.SERVIDOR_API + servicio;
-        let myHeaders: HttpHeaders = new HttpHeaders();
-        let options = { headers: myHeaders };
-
-        return this.http.post(url, body, options);
-    }
-
-    private putRequest(servicio: string, body: any): Observable<any> {
-        var url: string;
-        url = this.SERVIDOR_API + servicio;
-        let myHeaders: HttpHeaders = new HttpHeaders();
-        let options = { headers: myHeaders };
-
-        return this.http.put(url, body, options);
-    }
-    
     private paramsString(params: any, queryParams: Array<any>) {
-        if (params == null) params = "";
-        if (queryParams != null) {
+        if (!params) params = "";
+        if (queryParams) {
             for (let i = 0; i < queryParams.length; i++) {
                 if (i == 0) {
                     params = params.toString().concat("?");
@@ -51,16 +33,16 @@ export class ReportsService {
         return params;
     }
 
-    getReport(params: any[]){
-        let url : string = "";
-        for(let i = 0; i < params.length; i++){
-            if(i != 0){
-                url = url + "&";
+    getReport(params: any[]) {
+        let url: string = "";
+        for (let i = 0; i < params.length; i++) {
+            if (i != 0) {
+                url = `${url}&`;
             }
-            url = url + "country=" + params[i] + "&" + "offset=" + params[i+1] ;
+            url = `${url}country=${params[i]}&offset=${params[i + 1]}`;
             i++;
         }
-        return this.getRequest("report",null,[url]);
+        return this.getRequest("report", null, [url]);
     }
 }
 

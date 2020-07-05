@@ -11,7 +11,7 @@ export class DataService {
     constructor() { }
 
     setReportList(list: CountriesListModel) {
-        if (list != null) {
+        if (list) {
             let list_string = JSON.stringify(list);
             localStorage.setItem("reportList", list_string);
         }
@@ -28,7 +28,7 @@ export class DataService {
     }
 
     setUserView(user : UserModel){
-        if (user != null) {
+        if (user) {
             let user_string = JSON.stringify(user);
             localStorage.setItem("userView", user_string);
         }

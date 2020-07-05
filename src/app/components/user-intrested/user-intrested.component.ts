@@ -43,8 +43,8 @@ export class UserIntrestedComponent implements OnInit {
 
   private _filter(value: any): Array<CountryModel> {
     let filterValue = "";
-    if(value != null ){
-      if(value.name == null)
+    if(value){
+      if(!value.name)
         filterValue = value.toLowerCase();
       else 
         filterValue = value.name.toLowerCase();

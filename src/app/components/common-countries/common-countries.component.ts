@@ -57,7 +57,7 @@ export class CommonCountriesComponent implements OnInit {
 
   private _filter(value: any): Array<CountriesListModel> {
     let filterValue: string;
-    if (value.name == null) {
+    if (!value?.name) {
       filterValue = value.toLowerCase();
     } else {
       filterValue = value.name.toLowerCase();
@@ -66,7 +66,7 @@ export class CommonCountriesComponent implements OnInit {
   }
 
   selectListA(list) {
-    if (list != null) {
+    if (list) {
       this.listA = list;
       this.calculateIntersection();
     }
@@ -87,7 +87,7 @@ export class CommonCountriesComponent implements OnInit {
   }
 
   calculateIntersection() {
-    if (this.listA != null && this.listB != null) {
+    if (this.listA && this.listB) {
 
       this.listIntersected = this.listA.countries.filter(a =>
         this.listB.countries.some(b => a.idCountry === b.idCountry));;

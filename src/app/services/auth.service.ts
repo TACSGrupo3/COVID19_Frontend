@@ -46,7 +46,7 @@ export class AuthService {
 
   loginUser(user: UserModel): Observable<any> {
     var url: string;
-    url = this.SERVIDOR_API + "session";
+    url = `${this.SERVIDOR_API}session`;
     let myHeaders: HttpHeaders = new HttpHeaders();
     let options = {headers: myHeaders};
 
@@ -60,7 +60,7 @@ export class AuthService {
     user.username = data.user.email;
     user.password = data.user.uid;
     var url: string;
-    url = this.SERVIDOR_API + "sessionWithSocial";
+    url = `${this.SERVIDOR_API}sessionWithSocial`;
     let myHeaders: HttpHeaders = new HttpHeaders();
     let options = {headers: myHeaders};
 
@@ -74,7 +74,7 @@ export class AuthService {
     user.username = data.user.email;
     user.password = data.user.uid;
     var url: string;
-    url = this.SERVIDOR_API + "sessionWithSocial";
+    url = `${this.SERVIDOR_API}sessionWithSocial`;
     let myHeaders: HttpHeaders = new HttpHeaders();
     let options = {headers: myHeaders};
 
@@ -89,7 +89,7 @@ export class AuthService {
     user.username = data.user.email;
     user.password = data.user.uid;
     var url: string;
-    url = this.SERVIDOR_API + "sessionWithSocial";
+    url = `${this.SERVIDOR_API}sessionWithSocial`;
     let myHeaders: HttpHeaders = new HttpHeaders();
     let options = {headers: myHeaders};
 
@@ -108,7 +108,7 @@ export class AuthService {
   }
 
   setUser(user: UserModel): void {
-    if (user != null) {
+    if (user) {
       let user_string = JSON.stringify(user);
       localStorage.setItem("currentUser", user_string);
     } else {
@@ -154,18 +154,17 @@ export class AuthService {
 
   getUserId() {
     let user: UserModel = this.getCurrentUser();
-    if (user != null) return user.id;
+    if (user) return user.id;
   }
 
   isTokenAvaible() {
-    if (this.getToken() != null && this.getCurrentUser() != null)
+    if (this.getToken() && this.getCurrentUser())
       return true;
     return false;
   }
 
   setAdminFlag(data: any) {
-    if (data != null && data.username != null &&
-      data.userRole == "ADMIN") {
+    if (data?.username && data.userRole == "ADMIN") {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -173,7 +172,7 @@ export class AuthService {
   }
 
   setTitle(title: any) {
-    if (title == null)
+    if (!title)
       this.titleName = "a Covid19"
     else
       this.titleName = title;
@@ -181,7 +180,7 @@ export class AuthService {
 
   updateUser(user: UserModel): Observable<any> {
     var url: string;
-    url = this.SERVIDOR_API + "users" + "/" + user.id;
+    url = `${this.SERVIDOR_API}users/${user.id}`;
     let myHeaders: HttpHeaders = new HttpHeaders();
     let options = {headers: myHeaders};
 
@@ -191,7 +190,7 @@ export class AuthService {
   getLastAccess() {
     let user = this.getCurrentUser();
 
-    if (user != null) {
+    if (user) {
       return this.datepipe.transform(user.lastAccess, 'dd/MM/yyyy, h:mm:ss a');
     } else {
       return "";
