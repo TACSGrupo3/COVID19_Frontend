@@ -67,10 +67,10 @@ export class GraphReportComponent implements OnInit {
 
   ngOnInit(): void {
     let list = this.dataReport.getList();
-    if (list != null && list.countries != null && list.countries.length > 0) {
+    if (list?.countries && list.countries.length > 0) {
       let params = [];
       list.countries.forEach(country => {
-        if (country.offset != null && country.idCountry != null) {
+        if (country.offset && country.idCountry) {
           params.push(country.idCountry);
           params.push(this.getFormattedDate(country.offset))
         }
@@ -78,7 +78,7 @@ export class GraphReportComponent implements OnInit {
       this.reportService.getReport(params).subscribe(data => {
         this.listOfCountries = data;
 
-        if (this.listOfCountries != null)
+        if (this.listOfCountries)
           this.loadGraph();
       });
     }
@@ -87,21 +87,17 @@ export class GraphReportComponent implements OnInit {
   }
 
   loadGraph() {
-    let arrayDates: Array<string> = new Array<string>();
+    let arrayDates: Array<any> = new Array<any>();
 
+    let maxCount = 0;
     this.listOfCountries.forEach(country => {
-      let datesOfCountry = [];
-      country.dataReport.forEach(data => {
-        if (data.deaths != 0) datesOfCountry.push(this.getFormattedDate(data.date));
-      });
-      arrayDates = arrayDates.concat(datesOfCountry);
+      if(maxCount < country.dataReport.length)
+        maxCount = country.dataReport.length;
     });
 
-    arrayDates = Array.from(new Set(arrayDates));
-    arrayDates.sort(function (a, b) {
-      a = a.split('/').reverse().join('');
-      b = b.split('/').reverse().join('');
-      return a > b ? 1 : a < b ? -1 : 0;
+    arrayDates = Array.from(Array(maxCount).keys());
+    arrayDates = arrayDates.map(item =>{
+      return item = `Día ${item}`
     });
 
     let datasetsDeaths: Array<DataSetsGraphModel> = new Array<DataSetsGraphModel>();
@@ -118,11 +114,11 @@ export class GraphReportComponent implements OnInit {
       datasetConfirmed.label = this.listOfCountries[i].name;
 
       var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      datasetDeaths.borderColor = '#' + randomColor;
+      datasetDeaths.borderColor = `#${randomColor}`;
       var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      datasetRecovered.borderColor = '#' + randomColor;
+      datasetRecovered.borderColor = `#${randomColor}`;
       var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      datasetConfirmed.borderColor = '#' + randomColor;
+      datasetConfirmed.borderColor = `#${randomColor}`;
 
       datasetDeaths.fill = false;
       datasetRecovered.fill = false;
@@ -133,30 +129,17 @@ export class GraphReportComponent implements OnInit {
       let dataRecovered: Array<string> = new Array<string>();
       let dataConfirmed: Array<string> = new Array<string>();
 
+      let index = 0;
 
-      let lastValue = 0;
       this.listOfCountries[i].dataReport.forEach(dataReport => {
-        const indexDate = (element) => this.getFormattedDate(dataReport.date) === element;
+     
+        dataDeaths[index] = dataReport.deaths.toString();
+        dataRecovered[index] = dataReport.recovered.toString();
+        dataConfirmed[index] = dataReport.confirmed.toString();
 
-        let indexLabelDate = arrayDates.findIndex(indexDate);
-
-        if (indexLabelDate > -1) {
-          dataDeaths[indexLabelDate] = dataReport.deaths.toString();
-          dataRecovered[indexLabelDate] = dataReport.recovered.toString();
-          dataConfirmed[indexLabelDate] = dataReport.confirmed.toString();
-
-          if (indexLabelDate - 1 != lastValue && indexLabelDate != 0) {
-            for (let j = lastValue; j < indexLabelDate; j++) {
-              dataDeaths[j] = "0";
-              dataRecovered[j] = "0";
-              dataConfirmed[j] = "0";
-            }
-          }
-
-          lastValue = indexLabelDate;
-        }
-
+        index++;
       });
+      
       datasetDeaths.data = dataDeaths;
       datasetRecovered.data = dataRecovered;
       datasetConfirmed.data = dataConfirmed;
