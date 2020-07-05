@@ -11,6 +11,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {RouterTestingModule} from "@angular/router/testing";
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
+import {CountriesServices} from "../../services/countries.service";
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -21,7 +22,7 @@ describe('RegisterComponent', () => {
       declarations: [ RegisterComponent ],
       imports:[AngularFireModule.initializeApp(environment.firebaseConfig), RouterTestingModule,BrowserModule,
         FormsModule],
-      providers: [AuthService, HttpClient,HttpHandler,AngularFirestore,DatePipe,MatSnackBar],
+      providers: [AuthService, HttpClient,HttpHandler,AngularFirestore,DatePipe,MatSnackBar,CountriesServices],
     })
     .compileComponents();
   }));

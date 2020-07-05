@@ -14,6 +14,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {Overlay} from "@angular/cdk/overlay";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
+import {CountriesServices} from "../../services/countries.service";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -24,7 +25,7 @@ describe('LoginComponent', () => {
       imports:[AngularFireModule.initializeApp(environment.firebaseConfig),RouterTestingModule,BrowserModule,
         FormsModule],
       declarations: [ LoginComponent ],
-      providers: [AuthService, HttpClient,HttpHandler,AngularFirestore,DatePipe,MatSnackBar,AdminService,Overlay],
+      providers: [AuthService, HttpClient,HttpHandler,AngularFirestore,DatePipe,MatSnackBar,AdminService,Overlay,CountriesServices],
     })
     .compileComponents();
   }));

@@ -10,6 +10,7 @@ import {DatePipe} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {RouterTestingModule} from "@angular/router/testing";
+import {CountriesServices} from "../services/countries.service";
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -17,7 +18,7 @@ describe('AuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports:[AngularFireModule.initializeApp(environment.firebaseConfig),RouterTestingModule],
-      providers: [AuthService, HttpClient,HttpHandler,AngularFirestore,DatePipe,MatSnackBar],
+      providers: [AuthService, HttpClient,HttpHandler,AngularFirestore,DatePipe,MatSnackBar,CountriesServices],
     });
     guard = TestBed.inject(AuthGuard);
   });

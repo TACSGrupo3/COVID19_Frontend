@@ -8,6 +8,7 @@ import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
 import {DatePipe} from "@angular/common";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {CountriesServices} from "./services/countries.service";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,7 +21,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      providers: [AuthService, AngularFirestore, DatePipe],
+      providers: [AuthService, AngularFirestore, DatePipe,CountriesServices],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
@@ -30,5 +31,5 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-  
+
 });
