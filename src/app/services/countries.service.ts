@@ -52,8 +52,8 @@ export class CountriesServices {
   }
 
   private paramsString(params: any, queryParams: Array<any>) {
-    if (params == null) params = "";
-    if (queryParams != null) {
+    if (!params) params = "";
+    if (queryParams) {
       for (let i = 0; i < queryParams.length; i++) {
         if (i == 0) {
           params = params.toString().concat("?");

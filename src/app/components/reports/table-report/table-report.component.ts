@@ -19,11 +19,11 @@ export class TableReportComponent implements OnInit {
 
   ngOnInit(): void {
     let list = this.dataReport.getList();
-    if (list != null && list.countries != null && list.countries.length > 0 && this.dataReport.showReport) {
+    if (!list?.countries && list.countries.length > 0) {
       let params = [];
       list.countries.forEach(country => {
-        if (country.offset != null && country.idCountry != null) {
-          params.push(country.idCountry);
+        if (!country?.offset && !country?.id) {
+          params.push(country.id);
           params.push(this.getFormattedDate(country.offset))
         }
       });

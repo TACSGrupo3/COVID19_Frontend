@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CountriesListModel } from 'src/app/model/countriesList.model';
 import { CountryModel } from 'src/app/model/country.model';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -9,8 +9,6 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/model/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MatStepper } from '@angular/material/stepper';
 
 declare var $: any;
 
@@ -18,7 +16,6 @@ export interface ConfirmDialog {
   message: any;
   type: string;
 
-  newList: boolean;
   isDeleted: boolean;
 }
 
@@ -28,7 +25,7 @@ export interface ConfirmDialog {
   styleUrls: ['./new-countries-list.component.scss']
 })
 export class NewCountriesListComponent implements OnInit {
-  @ViewChild('stepper') stepper: MatStepper;
+
   formGroup: FormGroup;
   countries: Array<CountryModel>;
   countryToAdd: any;
@@ -44,17 +41,12 @@ export class NewCountriesListComponent implements OnInit {
   mode: number = 0;
 
   constructor(private authService: AuthService, private countriesService: CountriesServices,
-    public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar,
-    private spinnerService: NgxSpinnerService) {
-    if (this.router.getCurrentNavigation().extras.state != null &&
-      this.router.getCurrentNavigation().extras.state.data != null)
+    public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
+    if (this.router.getCurrentNavigation().extras.state?.data)
       this.listToModify = this.router.getCurrentNavigation().extras.state.data.list;
   }
 
   ngOnInit(): void {
-    this.spinnerService.show();
-   
-    this.isValid = false;
     this.countriesList = new CountriesListModel();
     this.formatDualList = {
       add: 'Agregar', remove: 'Quitar', all: 'Todos', none: 'Ninguno',
@@ -79,17 +71,28 @@ export class NewCountriesListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+
     $("input[name=filterSource]").attr("placeholder", "Ingresá el país a buscar...");
     $("input[name=filterDestination]").attr("placeholder", "Ingresá el país a buscar...");
   }
 
   findAll() {
     this.countriesService.findAll().subscribe(response => {
-      if (response != null) {
+      if (response) {
         this.countries = response;
-        this.spinnerService.hide();
       }
     });
+  }
+
+  addCountry() {
+    let countryToAdd = this.formGroup.get('countryToAdd').value;
+    this.countriesList.countries.push(countryToAdd);
+
+    this.countries = this.countries.filter(country => {
+      return country.id != countryToAdd.id;
+    });
+
+    this.formGroup.get('countryToAdd').setValue('');
   }
 
   getDisplayCountryName() {
@@ -113,6 +116,8 @@ export class NewCountriesListComponent implements OnInit {
         return 0;
       }
     });
+
+    console.log(this.countries);
   }
 
   isValidName() {
@@ -154,14 +159,6 @@ export class NewCountriesListComponent implements OnInit {
         width: '500px',
         height: '500px',
         data: { message: "Se ha creado la lista con éxito!", type: "confirm" }
-      });
-
-      dialogRef.afterClosed().subscribe(data =>{
-        let newList = dialogRef.componentInstance.data.newList;
-        if(newList){
-          this.ngOnInit();
-          this.stepper.selectedIndex = 0;
-        }
       });
     } else {
       const dialogRef = this.dialog.open(ConfirmModalComponent, {
