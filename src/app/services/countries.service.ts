@@ -12,7 +12,7 @@ const CACHE_SIZE = 1;
 export class CountriesServices {
   readonly SERVIDOR_API: string = "/api/";
 
-  private cache$: Observable<Array<CountryModel>>;
+  public cache$: Observable<Array<CountryModel>>;
 
   constructor(private http: HttpClient) {
   }
