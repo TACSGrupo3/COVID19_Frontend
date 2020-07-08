@@ -72,7 +72,18 @@ export class GraphReportComponent implements OnInit {
       list.countries.forEach(country => {
         if (country.offset && country.idCountry) {
           params.push(country.idCountry);
-          params.push(this.getFormattedDate(country.offset))
+          let date = this.getFormattedDate(country.offset);
+         
+          if(date == this.getFormattedDate(new Date())){
+            let dateBefore = new Date();
+            dateBefore.setDate(dateBefore.getDate()-2);
+            date = this.getFormattedDate(dateBefore);
+          }else if(date == this.getFormattedDate(this.getYesterday())){
+            let dateBefore = new Date();
+            dateBefore.setDate(dateBefore.getDate()-3);
+            date = this.getFormattedDate(dateBefore);
+          }
+          params.push(date);
         }
       });
       this.reportService.getReport(params).subscribe(data => {
@@ -82,8 +93,12 @@ export class GraphReportComponent implements OnInit {
           this.loadGraph();
       });
     }
+  }
 
-
+  getYesterday(){
+    let dateYesterday = new Date();
+    dateYesterday.setDate(dateYesterday.getDate()-1);
+    return dateYesterday;
   }
 
   loadGraph() {
@@ -115,10 +130,10 @@ export class GraphReportComponent implements OnInit {
 
       var randomColor = Math.floor(Math.random() * 16777215).toString(16);
       datasetDeaths.borderColor = `#${randomColor}`;
-      var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      datasetRecovered.borderColor = `#${randomColor}`;
-      var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      datasetConfirmed.borderColor = `#${randomColor}`;
+      var randomColor1 = Math.floor(Math.random() * 16777215).toString(16);
+      datasetRecovered.borderColor = `#${randomColor1}`;
+      var randomColor2 = Math.floor(Math.random() * 16777215).toString(16);
+      datasetConfirmed.borderColor = `#${randomColor2}`;
 
       datasetDeaths.fill = false;
       datasetRecovered.fill = false;
@@ -139,6 +154,28 @@ export class GraphReportComponent implements OnInit {
 
         index++;
       });
+      let size = this.listOfCountries[i].dataReport.length;
+
+      if(size < maxCount){
+        //rellenar con la última pendiente
+        let lastDataReport = this.listOfCountries[i].dataReport[size-1];
+        let beforeLastDataReport = this.listOfCountries[i].dataReport[size-2];
+
+        let diferenceDeath = lastDataReport.deaths - beforeLastDataReport.deaths;
+        let diferenceConfirmed = lastDataReport.confirmed - beforeLastDataReport.confirmed;
+        let diferenceRecovered = lastDataReport.recovered - beforeLastDataReport.recovered;
+
+        let cantToFill = maxCount - size;
+        for(let indexTofill = size; indexTofill <= maxCount; indexTofill ++){
+          let actualSize = dataDeaths.length;
+          let newDeathsCount = parseInt(dataDeaths[actualSize-1],10) + diferenceDeath;
+          let newConfirmedCount = parseInt(dataConfirmed[actualSize-1],10) + diferenceConfirmed;
+          let newRecoveredCount = parseInt(dataRecovered[actualSize-1],10) + diferenceRecovered;
+          dataDeaths[indexTofill] = newDeathsCount.toString();
+          dataRecovered[indexTofill] = newRecoveredCount.toString();
+          dataConfirmed[indexTofill] = newConfirmedCount.toString()
+        }
+      }
       
       datasetDeaths.data = dataDeaths;
       datasetRecovered.data = dataRecovered;
